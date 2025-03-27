@@ -1,9 +1,11 @@
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
 export type SearchResultHeaderProps = {
   children: ReactNode;
+  className?: string;
 };
 
-export const SearchResultHeader = ({ children }: SearchResultHeaderProps) => {
-  return <div className="font-bold text-2xl max-w-[300px]"> {children} </div>;
+export const SearchResultHeader = ({ children, className }: SearchResultHeaderProps) => {
+  return <div className={cn("font-bold text-2xl", className)}> {children} </div>;
 };

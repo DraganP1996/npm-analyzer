@@ -17,8 +17,6 @@ export default function Home() {
 
     const { objects } = await searchAPI(value);
     setResults(objects);
-
-    console.log("Check objects", objects);
   };
 
   return (
