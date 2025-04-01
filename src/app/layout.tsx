@@ -5,6 +5,7 @@ import "./globals.css";
 const geistSans = Electrolize({
   variable: "--font-geist-sans",
   weight: ["400"],
+  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({

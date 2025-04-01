@@ -8,6 +8,13 @@ export interface NpmSearchResult {
   package: NpmPackageInfo;
   score: NpmScore;
   searchScore: number;
+  dependents: number;
+  downloads: NpmDownloadInfo;
+}
+
+export interface NpmDownloadInfo {
+  monthly: number;
+  weekly: number;
 }
 
 export interface NpmPackageInfo {

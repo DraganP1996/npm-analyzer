@@ -39,6 +39,16 @@ export const columns: ColumnDef<NpmSearchResult>[] = [
     },
   },
   {
+    accessorKey: "downloads.monthly",
+    header: () => <SearchResultHeader className=""> Monthly downloads </SearchResultHeader>,
+    cell: ({ cell }) => {
+      const value = cell.getValue() as number;
+      const formattedValue = Intl.NumberFormat("en", { notation: "compact" }).format(value);
+
+      return formattedValue;
+    },
+  },
+  {
     accessorKey: "package.date",
     header: () => <SearchResultHeader className="w-[220px]"> Last update </SearchResultHeader>,
     cell: ({ cell }) => {

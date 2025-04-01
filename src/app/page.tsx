@@ -1,5 +1,8 @@
 "use client";
 
+import { Row } from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
+
 import { searchAPI } from "@/actions";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -10,13 +13,22 @@ import { NpmSearchResult } from "@/types";
 
 export default function Home() {
   const [results, setResults] = useState<NpmSearchResult[]>([]);
+  const router = useRouter();
 
   const handlePackageSearch = async (value: string) => {
     if (value.length === 0) setResults([]);
     if (value.length < 3) return;
 
     const { objects } = await searchAPI(value);
+
     setResults(objects);
+  };
+
+  const handleRowClick = (row: Row<NpmSearchResult>) => {
+    console.log("Row clicked", row.original);
+    const name = row.original.package.name;
+
+    router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/package/${name}`);
   };
 
   return (
@@ -31,7 +43,7 @@ export default function Home() {
         <PackageSearch onSearchChange={handlePackageSearch} />
         {!!results.length && (
           <div className="container mx-auto py-10">
-            <DataTable columns={columns} data={results} />
+            <DataTable columns={columns} data={results} onRowClick={handleRowClick} />
           </div>
         )}
       </main>
