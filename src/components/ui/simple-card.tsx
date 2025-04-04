@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "./card";
 
 type ValueCardProps = {
   title: string;
   children: ReactNode;
 };
 
-export const ValueCard = ({ title, children }: ValueCardProps) => {
+export const SimpleCard = ({ title, children }: ValueCardProps) => {
   return (
     <Card className="gap-0 py-2">
       <CardContent className="gap-0 px-4">

@@ -37,8 +37,6 @@ export const groupVersionsByMonth = (data: Record<string, string>): MonthVersion
     current.setMonth(current.getMonth() + 1); // move to next month
   }
 
-  console.log("Check all months", allMonths);
-
   const entries = Object.entries(data).map(([version, dateStr]) => ({
     version,
     date: new Date(dateStr),
@@ -56,8 +54,6 @@ export const groupVersionsByMonth = (data: Record<string, string>): MonthVersion
       versions: monthlyVersions,
     });
   }
-
-  console.log("Months grouped data", months);
 
   return months;
 };

@@ -1,33 +1,45 @@
-import PackageGeneralPage from "@/components/pages/package-general-page";
+import PackageDashboard from "@/components/package-dashboard/package-dashboard";
+import { PackagVersions } from "@/components/package-versions/package-versions";
+import { PackageVersionSpecificPage } from "@/components/pages/package-versions-specific-page";
+import { extractPackageFromUrl } from "@/utils";
+import { getPackageData } from "@/utils/getPackageData";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
 export default async function Page({ params }: PageProps) {
   const { package_name } = await params;
 
-  console.log("Has package name lenfth ? ", package_name, package_name.length);
-
   if (!package_name?.length || !package_name[0].trim().length) {
     return <div>Redirect to home</div>;
   }
 
-  const decodedPackageName = decodeURIComponent(package_name[0]);
-  const isScoped = decodedPackageName?.startsWith("@");
+  const packageFromUrl = extractPackageFromUrl(package_name);
 
-  if (isScoped && !package_name[1]) {
-    return <div>Redirect to home</div>;
-  }
+  if (!packageFromUrl) return <div>Redirect to home</div>;
 
-  const packageName = isScoped ? `${decodedPackageName}/${package_name[1]}` : package_name[0];
-  const version = isScoped ? package_name[3] : package_name[2];
-  const section = isScoped ? package_name[4] : package_name[3];
+  const { packageName, versionsPath, section, version } = packageFromUrl;
 
   if (!packageName) {
     return <div>Redirect to home</div>;
   }
 
-  if (!version) {
-    return <PackageGeneralPage packageName={packageName} />;
+  const packageData = await getPackageData(packageName);
+
+  if (!version && versionsPath === "versions") {
+    return (
+      <PackagVersions
+        versions={packageData.stableVersions}
+        orderedVersionNumbers={packageData.stableVersionNumbers}
+      />
+    );
+  } else if (!version && versionsPath && versionsPath !== "versions") {
+    return <div> 404 </div>;
+  } else if (!version && !versionsPath) {
+    return <PackageDashboard packageName={packageName} metadata={packageData} />;
+  }
+
+  if (version && !section) {
+    return <PackageVersionSpecificPage packageName={packageName} />;
   }
 
   if (!section) {

@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Avatar, AvatarImage } from "./avatar";
 import { formatDistance, subDays } from "date-fns";
+
+import { Avatar, AvatarImage } from "./avatar";
 import { cn } from "@/lib/utils";
 
 type ListWithDateAuthorProps = {
@@ -27,11 +28,7 @@ export const ListItemWithDateAuthor = ({
 
   return (
     <div className="p-2 hover:bg-blue-200/50 cursor-pointer rounded hover:shadow flex flex-col gap-2">
-      <Link
-        href={url}
-        className="leading-5 break-words text-sm line-clamp-3 w-full"
-        target="_blank"
-      >
+      <Link href={url} className="leading-5 break-all text-sm line-clamp-3 w-full" target="_blank">
         {text}
       </Link>
       <div

@@ -1,5 +1,4 @@
-import { DependenciesCard } from "./depencies-card";
-import { SectionHeader } from "./section-header";
+import { DependenciesCard, SectionHeader } from "../components";
 
 type DependenciesOverviewProps = {
   packageName: string;
@@ -22,17 +21,17 @@ export const DependenciesOverview = ({
       <div className="flex flex-row gap-2">
         <DependenciesCard
           title="Dependencies"
-          description={`Packages used by the ${packageName} package`}
+          description={`List of dependencies of ${packageName}`}
           dependencies={deps}
         />
         <DependenciesCard
           title="Peer Dependencies"
-          description={`Packages required by the ${packageName} package`}
+          description={`List of peer dependencies of ${packageName}`}
           dependencies={peerDeps}
         />
         <DependenciesCard
           title="Dev Dependencies"
-          description={`Packages for the development the ${packageName} package`}
+          description={`List of dev dependencies of ${packageName} package`}
           dependencies={devDeps}
         />
       </div>

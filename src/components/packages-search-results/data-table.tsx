@@ -37,15 +37,12 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  console.log("data", data);
-  console.log("getPaginationRowModel", table.getRowModel());
-
   return (
     <div className="">
-      <Table className="table-fixed">
-        <TableHeader>
+      <Table className="table-fixed rounded border">
+        <TableHeader className="bg-blue-100/50 rounded">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="rounded">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -64,7 +61,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="cursor-pointer group"
+                className="cursor-pointer group p-2"
                 onClick={() => onRowClick?.(row)}
               >
                 {row.getVisibleCells().map((cell) => (

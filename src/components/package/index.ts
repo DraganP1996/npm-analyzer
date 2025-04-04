@@ -1,4 +1,2 @@
-export * from "./depencies-card";
-export * from "./section-header";
-export * from "./complex-card";
-export * from "./package-leading-info";
+export * from "../package-dashboard/components/depencies-card";
+export * from "../package-dashboard/components/section-header";

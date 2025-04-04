@@ -4,3 +4,5 @@ export * from "./extractGitHubRepo";
 export * from "./githubRepository";
 export * from "./getPackagePackedSize";
 export * from "./groupVersionsByMonth";
+export * from "./extractPackageFromUrl";
+export * from "./getPercentualDifference";

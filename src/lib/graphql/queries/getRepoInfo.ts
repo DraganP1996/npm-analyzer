@@ -1,18 +1,12 @@
 export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
   repository(owner: $owner, name: $name) {
     createdAt
-    defaultBranchRef {
+    last10Commits: defaultBranchRef {
       name
       refUpdateRule {
         allowsDeletions
         allowsForcePushes
         requiresCodeOwnerReviews
-      }
-      rules(first: 100) {
-        totalCount
-        nodes {
-          type
-        }
       }
       target {
         commitUrl
@@ -25,13 +19,30 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
               messageBody
               url
               author {
-                name
                 user {
                   url
                   avatarUrl
                   name
                 }
               }
+            }
+          }
+        }
+      }
+    }
+    commitsHistory:defaultBranchRef {
+      target {
+        ... on Commit {
+          history(first: 100) {
+            nodes {
+                committedDate
+                author {
+                  user {
+                    login
+                    avatarUrl
+                    url
+                  }
+                }
             }
           }
         }
@@ -61,7 +72,6 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
     isEmpty
     isFork
     isLocked
-    isInOrganization
     isSecurityPolicyEnabled
     issues(first: 10, states: OPEN, orderBy: { field: CREATED_AT, direction: DESC }) {
       totalCount

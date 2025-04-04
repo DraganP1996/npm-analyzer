@@ -3,7 +3,6 @@ type RepoFlags = {
   idDisabled: boolean;
   isEmpty: boolean;
   isFork: boolean;
-  isInOrganization: boolean;
   isLocked: boolean;
   isSecurityPolicyEnabled: boolean;
 };
@@ -16,13 +15,13 @@ type RepoCount = {
   };
 };
 
-type RepositoryAuthor = {
+export type RepositoryAuthor = {
   avatarUrl: string;
   login: string;
   url: string;
 };
 
-type RepositoryDiscussion = {
+export type RepositoryDiscussion = {
   id: string;
   title: string;
   author?: RepositoryAuthor;
@@ -35,7 +34,7 @@ type WithNodes<NodeType> = {
   nodes: NodeType[];
 };
 
-type RepositoryIssue = {
+export type RepositoryIssue = {
   id: string;
   title: string;
   body: string;
@@ -45,7 +44,7 @@ type RepositoryIssue = {
   author?: RepositoryAuthor;
 };
 
-type RepositoryMilestone = {
+export type RepositoryMilestone = {
   title: string;
   description: string;
   state: "OPEN" | "CLOSED";
@@ -54,7 +53,7 @@ type RepositoryMilestone = {
   progressPercentage: number;
 };
 
-type RepositoryPullRequest = {
+export type RepositoryPullRequest = {
   id: string;
   title: string;
   url: string;
@@ -64,14 +63,13 @@ type RepositoryPullRequest = {
   author?: RepositoryAuthor;
 };
 
-type RepositoryCommit = {
+export type RepositoryCommit = {
   id: string;
   message: string;
   messageBody: string;
   url: string;
   committedDate: string;
   author?: {
-    name: string;
     user?: {
       avatarUrl: string;
       name: string;
@@ -97,6 +95,19 @@ type RepositoryDefaultBranch = {
   };
 };
 
+export type HistoryCommit = {
+  target: {
+    history: {
+      nodes: {
+        committedDate: string;
+        author?: {
+          user?: RepositoryAuthor;
+        };
+      }[];
+    };
+  };
+};
+
 export type GraphQLGithubRepository = {
   createdAt: string;
   homepageUrl: string;
@@ -108,7 +119,8 @@ export type GraphQLGithubRepository = {
   pullRequests: WithNodes<RepositoryPullRequest>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   vulnerabilityAlerts: any;
-  defaultBranchRef: RepositoryDefaultBranch;
+  last10Commits: RepositoryDefaultBranch;
+  commitsHistory: HistoryCommit;
   owner: {
     login: string;
     url: string;

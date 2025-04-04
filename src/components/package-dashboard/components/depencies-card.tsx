@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 
-import { Badge } from "../ui/badge";
-import { ComplexCard } from "./complex-card";
+import { Badge } from "@/components/ui/badge";
+import { ComplexCard } from "@/components/ui/complex-card";
+import { CardNoData } from "@/components/ui/card-no-data";
 
 type DependencyCardProps = {
   title: string;
@@ -35,11 +36,7 @@ export const DependenciesCard = ({ title, description, dependencies }: Dependenc
       contentClassName="min-h-[200px] max-h-[260px] overflow-auto"
     >
       {!hasDependencies ? (
-        <div className="flex items-center justify-center flex-1 text-xs">
-          <div className="max-w-[240px] text-gray-500">
-            This package has not {title} dependencies{" "}
-          </div>
-        </div>
+        <CardNoData content={`There are not dependencies`} />
       ) : (
         <div className="flex flex-col flex-1">
           {dependencyNames.map((name) => (

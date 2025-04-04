@@ -1,7 +1,8 @@
 import { EyeIcon, GitFork, StarIcon } from "lucide-react";
-import { ValueCard } from "./value-card";
 
-type RepositoryLeadingInfoProps = {
+import { SimpleCard } from "../../ui/simple-card";
+
+type ReposGeneralInfoProps = {
   defaultBranchName: string;
   stars: string;
   forks: string;
@@ -13,7 +14,7 @@ type RepositoryLeadingInfoProps = {
   isFork: boolean;
 };
 
-export const RepositoryLeadingInfo = ({
+export const ReposGeneralInfo = ({
   defaultBranchName,
   stars,
   forks,
@@ -23,46 +24,46 @@ export const RepositoryLeadingInfo = ({
   isDisabled,
   isSecurityPolicyEnabled,
   isFork,
-}: RepositoryLeadingInfoProps) => {
+}: ReposGeneralInfoProps) => {
   return (
     <div className="flex flex-row gap-2">
-      <ValueCard title="Default Branch">{defaultBranchName}</ValueCard>
-      <ValueCard title="Stars">
+      <SimpleCard title="Default Branch">{defaultBranchName}</SimpleCard>
+      <SimpleCard title="Stars">
         <div className="flex flex-row items-center justify-center gap-1">
           <StarIcon /> {stars}
         </div>
-      </ValueCard>
-      <ValueCard title="Forks">
+      </SimpleCard>
+      <SimpleCard title="Forks">
         <div className="flex flex-row items-center justify-center gap-1">
           <GitFork /> {forks}
         </div>
-      </ValueCard>
-      <ValueCard title="Watchers">
+      </SimpleCard>
+      <SimpleCard title="Watchers">
         <div className="flex flex-row items-center justify-center gap-1">
           <EyeIcon /> {watchers}
         </div>
-      </ValueCard>
-      <ValueCard title="Is Archived?">
+      </SimpleCard>
+      <SimpleCard title="Is Archived?">
         <span className={isLocked ? "text-red-600" : "text-green-600 font-bold"}>
           {isArchived ? "YES" : "NO"}
         </span>
-      </ValueCard>
-      <ValueCard title="Is Disabled?">
+      </SimpleCard>
+      <SimpleCard title="Is Disabled?">
         <span className={isLocked ? "text-red-600" : "text-green-600 font-bold"}>
           {isDisabled ? "YES" : "NO"}
         </span>
-      </ValueCard>
-      <ValueCard title="Is Fork?"> {isFork ? "YES" : "NO"} </ValueCard>
-      <ValueCard title="Is Locked?">
+      </SimpleCard>
+      <SimpleCard title="Is Fork?"> {isFork ? "YES" : "NO"} </SimpleCard>
+      <SimpleCard title="Is Locked?">
         <span className={isLocked ? "text-red-600" : "text-green-600 font-bold"}>
           {isLocked ? "YES" : "NO"}
         </span>
-      </ValueCard>
-      <ValueCard title="Security Policy Enabled?">
-        <span className={isSecurityPolicyEnabled ? "text-red-600" : "text-green-600 font-bold"}>
+      </SimpleCard>
+      <SimpleCard title="Security Policy Enabled?">
+        <span className={!isSecurityPolicyEnabled ? "text-red-600" : "text-green-600 font-bold"}>
           {isSecurityPolicyEnabled ? "YES" : "NO"}
         </span>
-      </ValueCard>
+      </SimpleCard>
     </div>
   );
 };

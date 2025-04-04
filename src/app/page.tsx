@@ -25,7 +25,6 @@ export default function Home() {
   };
 
   const handleRowClick = (row: Row<NpmSearchResult>) => {
-    console.log("Row clicked", row.original);
     const name = row.original.package.name;
 
     router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/package/${name}`);
