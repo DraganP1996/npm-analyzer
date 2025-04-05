@@ -1,84 +1,64 @@
 import { Table } from "@tanstack/react-table";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Ellipsis } from "lucide-react";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
 }
 
 export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
+  const pagination = table.getState().pagination;
+
+  const currentPage = pagination.pageIndex + 1;
+
   return (
-    <div className="flex items-center justify-end px-2">
-      <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex items-center space-x-2">
-          <p className="text-xs font-medium">Rows per page</p>
-          <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={(value) => {
-              table.setPageSize(Number(value));
-            }}
-          >
-            <SelectTrigger className="h-8 w-[70px]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
-            </SelectTrigger>
-            <SelectContent side="top">
-              {[10, 20, 30, 40, 50].map((pageSize) => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex w-[100px] items-center justify-center text-xs font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-        </div>
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <span className="sr-only">Go to first page</span>
-            <ChevronsLeft />
+    <div className="flex flex-row items-center justify-between text-xs">
+      <div className="flex flex-row items-center gap-1">
+        {pagination.pageIndex - 1 > 0 && (
+          <Button variant="ghost" className="cursor-pointer" onClick={() => table.firstPage()}>
+            1
           </Button>
-          <Button
-            variant="outline"
-            className="h-8 w-8 p-0"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <span className="sr-only">Go to previous page</span>
-            <ChevronLeft />
+        )}
+        {pagination.pageIndex - 1 > 1 && (
+          <Button variant="ghost" className="p-0 flex items-center justify-center">
+            <Ellipsis width={14} height={14} />
           </Button>
+        )}
+        {table.getCanPreviousPage() && (
           <Button
-            variant="outline"
-            className="h-8 w-8 p-0"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            variant="ghost"
+            className="cursor-pointer"
+            onClick={() => table.setPageIndex(pagination.pageIndex - 1)}
           >
-            <span className="sr-only">Go to next page</span>
-            <ChevronRight />
+            {currentPage - 1}
           </Button>
+        )}
+        <Button variant="outline" className="cursor-pointer">
+          {currentPage}
+        </Button>
+        {table.getCanNextPage() && (
           <Button
-            variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
+            variant="ghost"
+            className="cursor-pointer"
+            onClick={() => table.setPageIndex(pagination.pageIndex + 1)}
           >
-            <span className="sr-only">Go to last page</span>
-            <ChevronsRight />
+            {currentPage + 1}
           </Button>
-        </div>
+        )}
+        {pagination.pageIndex + 3 < table.getPageCount() && (
+          <Button variant="ghost" className="p-0 flex items-center justify-center">
+            <Ellipsis width={14} height={14} />
+          </Button>
+        )}
+        {pagination.pageIndex + 2 < table.getPageCount() && (
+          <Button variant="ghost" className="cursor-pointer" onClick={() => table.lastPage()}>
+            {table.getPageCount()}
+          </Button>
+        )}
+      </div>
+      <div className="flex w-[100px] items-center justify-center text-xs font-medium">
+        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
       </div>
     </div>
   );

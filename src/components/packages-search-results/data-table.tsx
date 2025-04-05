@@ -35,10 +35,16 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 50,
+      },
+    },
   });
 
   return (
-    <div className="">
+    <div className="flex flex-col gap-2">
       <Table className="table-fixed rounded border">
         <TableHeader className="bg-blue-100/50 rounded">
           {table.getHeaderGroups().map((headerGroup) => (
