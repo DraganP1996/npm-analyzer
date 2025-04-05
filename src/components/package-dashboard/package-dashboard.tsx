@@ -11,6 +11,9 @@ import {
   VersionsOverview,
   RepositoryOverview,
 } from "./sections";
+import { GraphQLGithubRepository } from "@/types/github";
+import { getOrSet } from "@/lib/redis";
+import { filterStableVersions } from "@/utils/filterStableVersions";
 
 export type PackageDashboardProps = {
   packageName: string;
@@ -21,25 +24,38 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
   const {
     latestVersion,
     repositoryUrl: metadataRepoUrl,
-    stableVersionNumbers,
-    time,
     license,
     author,
     description,
+    stableVersions,
   } = metadata;
 
   const { dist, repository, version, dependencies, devDependencies, peerDependencies } =
-    latestVersion;
+    stableVersions[latestVersion];
 
   const tarball = dist.tarball;
   const repositoryUrl = repository?.url || metadataRepoUrl;
+
+  const versionNumbers = filterStableVersions(Object.keys(stableVersions));
+  const releaseHistoryRecord = Object.fromEntries(
+    Object.entries(stableVersions).map(([versionNumber, versionData]) => [
+      versionNumber,
+      versionData.releaseDate,
+    ])
+  );
+
   const gitHubRepo = repositoryUrl ? extractGitHubRepo(repositoryUrl) : undefined;
   const hasGithubRepo = gitHubRepo && gitHubRepo.owner && gitHubRepo.repo;
+
   const graphQLGithubData = hasGithubRepo
-    ? await getBranchInfo(getRepoInfoQuery, gitHubRepo?.owner, gitHubRepo?.repo)
+    ? await getOrSet<GraphQLGithubRepository>(`github:${packageName}`, 2 * 24 * 60 * 60, () =>
+        getBranchInfo(getRepoInfoQuery, gitHubRepo?.owner, gitHubRepo?.repo)
+      )
     : undefined;
 
-  const lastActivityDate = graphQLGithubData ? graphQLGithubData.pushedAt : time[version];
+  const lastActivityDate = graphQLGithubData
+    ? graphQLGithubData.pushedAt
+    : releaseHistoryRecord[version];
   const unpackedSize = dist.unpackedSize;
   const packedSize = await getPackagePackedSize(tarball);
   const packageLeadingInfo = {
@@ -69,8 +85,8 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
         devDeps={devDependencies}
       />
       <VersionsOverview
-        versions={stableVersionNumbers}
-        history={time}
+        versions={versionNumbers}
+        history={releaseHistoryRecord}
         packageName={packageName}
         lastVersion={latestVersion}
       />

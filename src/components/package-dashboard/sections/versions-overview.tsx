@@ -2,12 +2,11 @@ import { formatDistance, subDays } from "date-fns";
 
 import { SectionHeader, ReleaseFrequencyCard } from "../components";
 import { SimpleCard } from "../../ui/simple-card";
-import { NpmPackageVersion } from "@/types/package-metadata";
 
 type VersionsOverviewProps = {
   versions: string[];
   history: Record<string, string>;
-  lastVersion: NpmPackageVersion;
+  lastVersion: string;
   packageName: string;
 };
 
@@ -18,16 +17,12 @@ export const VersionsOverview = ({
   lastVersion,
 }: VersionsOverviewProps) => {
   const lastVersionReleaseTime = formatDistance(
-    subDays(new Date(history[lastVersion.version]), 3),
+    subDays(new Date(history[lastVersion]), 3),
     new Date(),
     {
       addSuffix: true,
     }
   );
-
-  Object.keys(history)
-    .filter((version) => !versions.includes(version))
-    .forEach((version) => delete history[version]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -36,7 +31,7 @@ export const VersionsOverview = ({
       </SectionHeader>
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2">
-          <SimpleCard title="Last Version">{lastVersion.version}</SimpleCard>
+          <SimpleCard title="Last Version">{lastVersion}</SimpleCard>
           <SimpleCard title="Last Version Released">{lastVersionReleaseTime}</SimpleCard>
           <SimpleCard title="N. of Versions">{versions.length}</SimpleCard>
         </div>
