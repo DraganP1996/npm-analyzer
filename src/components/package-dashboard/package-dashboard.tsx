@@ -1,7 +1,7 @@
 import { formatDistance, subDays } from "date-fns";
 
 import { extractGitHubRepo, formatBytes, getPackagePackedSize } from "@/utils";
-import { getRepoInfoQuery, getBranchInfo } from "@/lib/graphql";
+import { getRepoInfoQuery, getGithub } from "@/lib";
 import { PageContainer } from "../layout/page-container";
 import { NpmFormattedMetadata } from "../pages";
 
@@ -11,8 +11,6 @@ import {
   VersionsOverview,
   RepositoryOverview,
 } from "./sections";
-import { GraphQLGithubRepository } from "@/types/github";
-import { getOrSet } from "@/lib/redis";
 import { filterStableVersions } from "@/utils/filterStableVersions";
 
 export type PackageDashboardProps = {
@@ -48,9 +46,7 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
   const hasGithubRepo = gitHubRepo && gitHubRepo.owner && gitHubRepo.repo;
 
   const graphQLGithubData = hasGithubRepo
-    ? await getOrSet<GraphQLGithubRepository>(`github:${packageName}`, 2 * 24 * 60 * 60, () =>
-        getBranchInfo(getRepoInfoQuery, gitHubRepo?.owner, gitHubRepo?.repo)
-      )
+    ? await getGithub(packageName, getRepoInfoQuery, gitHubRepo?.owner, gitHubRepo?.repo)
     : undefined;
 
   const lastActivityDate = graphQLGithubData

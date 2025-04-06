@@ -1,9 +1,17 @@
 import { NpmPackageMetadata, NpmPackageVersion } from "@/types/package-metadata";
-import { filterStableVersions } from "./filterStableVersions";
+import { filterStableVersions } from "../../utils/filterStableVersions";
 import { NpmFormattedMetadata } from "@/components/pages";
+import { getOrSet } from "../redis";
 
-export const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata> => {
-  const packageResponse = await fetch(`https://registry.npmjs.org/${packageName}`);
+const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata> => {
+  const packageResponse = await fetch(`${process.env.NPM_BASE_URL}/${packageName}`, {
+    headers: {
+      "accept-encoding": "gzip",
+    },
+    next: {
+      revalidate: 345_600, // 4 days
+    },
+  });
   const packageData: NpmPackageMetadata = await packageResponse.json();
   const { versions, repository, time, license, author, description } = packageData;
   const stableVersionNumbers = filterStableVersions(Object.keys(versions));
@@ -43,6 +51,7 @@ export const getPackageData = async (packageName: string): Promise<NpmFormattedM
   );
 
   const extractedPackageData = {
+    name: packageData.name,
     latestVersion: packageData["dist-tags"].latest,
     repositoryUrl: versions[packageData["dist-tags"].latest].repository?.url || repository?.url,
     stableVersions: definedVersions,
@@ -53,3 +62,8 @@ export const getPackageData = async (packageName: string): Promise<NpmFormattedM
 
   return extractedPackageData;
 };
+
+export const getPackage = async (packageName: string) =>
+  await getOrSet<NpmFormattedMetadata>(`package:${packageName}`, 2 * 24 * 60 * 60, () =>
+    getPackageData(packageName)
+  );

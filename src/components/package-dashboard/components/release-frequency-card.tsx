@@ -32,9 +32,9 @@ export const ReleaseFrequencyCard = ({ history, packageName }: ReleaseFrequencyC
       <div className="flex flex-row items-center justify-end">
         <Link
           href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`}
-          className="flex flex-row items-center"
+          className="flex flex-row items-center rounded-sm p-2 text-sm hover:bg-gray-200 font-semibold text-gray-800"
         >
-          All Versions <ChevronRight />
+          All Versions <ChevronRight width={16} height={16} />
         </Link>
       </div>
     </ComplexCard>

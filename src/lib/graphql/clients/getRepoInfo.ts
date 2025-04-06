@@ -1,6 +1,7 @@
+import { getOrSet } from "@/lib/redis";
 import { GraphQLGithubRepository, GraphQLGithubResponse } from "@/types/github";
 
-export async function getBranchInfo(
+async function getGithubInfo(
   query: string,
   owner: string,
   repo: string
@@ -10,11 +11,16 @@ export async function getBranchInfo(
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "Content-Type": "application/json",
+      "Accept-Encoding": "gzip",
+      "User-Agent": "npm-check",
     },
     body: JSON.stringify({
       query,
       variables: { owner, name: repo },
     }),
+    next: {
+      revalidate: 24 * 60 * 60 * 1000,
+    },
   });
 
   if (!res.ok) {
@@ -31,5 +37,12 @@ export async function getBranchInfo(
 
   console.log("CHECK RESPONSE", json);
 
+  console.log("Rate limit", json.data.rateLimit);
+
   return json.data.repository;
 }
+
+export const getGithub = async (packageName: string, query: string, owner: string, repo: string) =>
+  await getOrSet<GraphQLGithubRepository>(`github:${packageName}`, 2 * 24 * 60 * 60, () =>
+    getGithubInfo(query, owner, repo)
+  );

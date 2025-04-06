@@ -136,4 +136,10 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
       }
     }
   }
+  rateLimit {
+      limit
+      remaining
+      resetAt
+      cost
+    }
 }`;

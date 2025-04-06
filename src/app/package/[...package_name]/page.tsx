@@ -1,11 +1,8 @@
 import PackageDashboard from "@/components/package-dashboard/package-dashboard";
 import { PackagVersions } from "@/components/package-versions/package-versions";
-import { NpmFormattedMetadata } from "@/components/pages";
-import { PackageVersionSpecificPage } from "@/components/pages/package-versions-specific-page";
-import { getOrSet } from "@/lib/redis";
-import { extractPackageFromUrl } from "@/utils";
-import { filterStableVersions } from "@/utils/filterStableVersions";
-import { getPackageData } from "@/utils/getPackageData";
+import { PackageVersion } from "@/components/package-version/package-version";
+import { extractPackageFromUrl, filterStableVersions } from "@/utils";
+import { getPackage } from "@/lib";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
@@ -25,11 +22,7 @@ export default async function Page({ params }: PageProps) {
   if (!packageName) {
     return <div>Redirect to home</div>;
   }
-  const packageData = await getOrSet<NpmFormattedMetadata>(
-    `package:${packageName}`,
-    2 * 24 * 60 * 60,
-    () => getPackageData(packageName)
-  );
+  const packageData = await getPackage(packageName);
 
   const orderedVersionNumbers = filterStableVersions(Object.keys(packageData.stableVersions));
 
@@ -47,7 +40,12 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (version && !section) {
-    return <PackageVersionSpecificPage packageName={packageName} />;
+    return (
+      <PackageVersion
+        version={packageData.stableVersions[version]}
+        packageName={packageData.name}
+      />
+    );
   }
 
   if (!section) {

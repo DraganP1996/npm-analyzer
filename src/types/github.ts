@@ -131,6 +131,7 @@ export type GraphQLGithubRepository = {
 export type GraphQLGithubResponse = {
   data: {
     repository: GraphQLGithubRepository;
+    rateLimit: unknown;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any;

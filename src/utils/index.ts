@@ -6,3 +6,4 @@ export * from "./getPackagePackedSize";
 export * from "./groupVersionsByMonth";
 export * from "./extractPackageFromUrl";
 export * from "./getPercentualDifference";
+export * from "./filterStableVersions";
