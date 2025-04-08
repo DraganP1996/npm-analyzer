@@ -4,3 +4,4 @@ export * from "./release-frequency-card";
 export * from "./release-frequency-chart";
 export * from "./top-contributors-chart";
 export * from "./top-contributors-legend";
+export * from "./security-chart";

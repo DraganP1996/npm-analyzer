@@ -1,3 +1,4 @@
+import { CACHE_TAGS } from "@/consts";
 import { getOrSet } from "@/lib/redis";
 import { GraphQLGithubRepository, GraphQLGithubResponse } from "@/types/github";
 
@@ -6,7 +7,7 @@ async function getGithubInfo(
   owner: string,
   repo: string
 ): Promise<GraphQLGithubRepository> {
-  const res = await fetch("https://api.github.com/graphql", {
+  const res = await fetch(`${process.env.GITHUB_BASE_URL}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
@@ -43,6 +44,8 @@ async function getGithubInfo(
 }
 
 export const getGithub = async (packageName: string, query: string, owner: string, repo: string) =>
-  await getOrSet<GraphQLGithubRepository>(`github:${packageName}`, 2 * 24 * 60 * 60, () =>
-    getGithubInfo(query, owner, repo)
+  await getOrSet<GraphQLGithubRepository>(
+    `${CACHE_TAGS.github}:${packageName}`,
+    2 * 24 * 60 * 60,
+    () => getGithubInfo(query, owner, repo)
   );

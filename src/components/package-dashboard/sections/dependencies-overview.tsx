@@ -1,4 +1,8 @@
+import { ChevronRight, Terminal } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { DependenciesCard, SectionHeader } from "../components";
+import { CardLink } from "@/components/ui/card-link";
 
 type DependenciesOverviewProps = {
   packageName: string;
@@ -35,6 +39,23 @@ export const DependenciesOverview = ({
           dependencies={devDeps}
         />
       </div>
+      <Alert>
+        <Terminal className="h-4 w-4" />
+        <AlertTitle className="text-md">Need a list of transitive dependencies ?</AlertTitle>
+        <AlertDescription>
+          <p className="text-sm">
+            Check the version specific page in order to see the complete list of transitive
+            dependencies of the lastest version (or any other) version of the package.
+          </p>
+          <div className="flex items-center justify-end w-full">
+            <CardLink href="">
+              <span className="flex flex-row text-sm items-center gap-1">
+                All Trasitive Depedencies <ChevronRight width={16} height={16} />{" "}
+              </span>
+            </CardLink>
+          </div>
+        </AlertDescription>
+      </Alert>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Electrolize, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout";
 
 const geistSans = Electrolize({
   variable: "--font-geist-sans",
@@ -26,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-geist-sans`}>
-        {children}
+        <div className="">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

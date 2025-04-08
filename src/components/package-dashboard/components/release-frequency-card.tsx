@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 import { groupVersionsByMonth } from "@/utils";
 import { ChartConfig } from "../../ui/chart";
 import { ComplexCard } from "../../ui/complex-card";
 import { ReleaseFrequencyChart } from "./release-frequency-chart";
+import { CardLink } from "@/components/ui/card-link";
 
 type ReleaseFrequencyCardProps = {
   history: Record<string, string>;
@@ -30,12 +30,9 @@ export const ReleaseFrequencyCard = ({ history, packageName }: ReleaseFrequencyC
     >
       <ReleaseFrequencyChart config={chartConfig} monthReleases={monthReleases} />
       <div className="flex flex-row items-center justify-end">
-        <Link
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`}
-          className="flex flex-row items-center rounded-sm p-2 text-sm hover:bg-gray-200 font-semibold text-gray-800"
-        >
+        <CardLink href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`}>
           All Versions <ChevronRight width={16} height={16} />
-        </Link>
+        </CardLink>
       </div>
     </ComplexCard>
   );

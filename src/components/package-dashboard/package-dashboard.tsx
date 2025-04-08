@@ -10,6 +10,7 @@ import {
   DependenciesOverview,
   VersionsOverview,
   RepositoryOverview,
+  SecurityOverview,
 } from "./sections";
 import { filterStableVersions } from "@/utils/filterStableVersions";
 
@@ -85,6 +86,11 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
         history={releaseHistoryRecord}
         packageName={packageName}
         lastVersion={latestVersion}
+      />
+      <SecurityOverview
+        packageName={packageName}
+        versions={stableVersions}
+        stableVersion={latestVersion}
       />
       {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
     </PageContainer>

@@ -2,6 +2,7 @@ import { NpmPackageMetadata, NpmPackageVersion } from "@/types/package-metadata"
 import { filterStableVersions } from "../../utils/filterStableVersions";
 import { NpmFormattedMetadata } from "@/components/pages";
 import { getOrSet } from "../redis";
+import { CACHE_TAGS } from "@/consts";
 
 const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata> => {
   const packageResponse = await fetch(`${process.env.NPM_BASE_URL}/${packageName}`, {
@@ -64,6 +65,8 @@ const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata
 };
 
 export const getPackage = async (packageName: string) =>
-  await getOrSet<NpmFormattedMetadata>(`package:${packageName}`, 2 * 24 * 60 * 60, () =>
-    getPackageData(packageName)
+  await getOrSet<NpmFormattedMetadata>(
+    `${CACHE_TAGS.package}:${packageName}`,
+    4 * 24 * 60 * 60,
+    () => getPackageData(packageName)
   );
