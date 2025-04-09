@@ -1,46 +1,29 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-
-import { SearchResultHeader } from "./header";
-import { NpmSearchResult } from "@/types";
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
-import { Badge } from "../ui/badge";
 import { formatDistance, subDays } from "date-fns";
+import { ColumnDef } from "@tanstack/react-table";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+
+import { NpmSearchResult } from "@/types";
+import { Badge } from "../ui/badge";
 
 export const columns: ColumnDef<NpmSearchResult>[] = [
   {
     accessorKey: "package.name",
-    header: () => (
-      <SearchResultHeader className="w-[auto] font-semibold">
-        {" "}
-        <strong className="font-semibold">Name </strong>{" "}
-      </SearchResultHeader>
-    ),
-    meta: {
-      className: "w-[auto] font-semibold",
-    },
+    header: "Name",
   },
   {
     accessorKey: "package.version",
-    header: () => <SearchResultHeader className="w-[220px]"> Version </SearchResultHeader>,
+    header: "Version",
     cell: ({ cell }) => {
       const value = cell.getValue() as string;
-      return (
-        <div className="">
-          {" "}
-          <Badge variant="default"> {value} </Badge>{" "}
-        </div>
-      );
-    },
-    meta: {
-      className: "w-[220px]",
+      return <Badge variant="default"> {value} </Badge>;
     },
   },
   {
     accessorKey: "downloads.monthly",
-    header: () => <SearchResultHeader className=""> Monthly downloads </SearchResultHeader>,
+    header: "Monthly downloads",
     cell: ({ cell }) => {
       const value = cell.getValue() as number;
       const formattedValue = Intl.NumberFormat("en", { notation: "compact" }).format(value);
@@ -50,7 +33,7 @@ export const columns: ColumnDef<NpmSearchResult>[] = [
   },
   {
     accessorKey: "package.date",
-    header: () => <SearchResultHeader className="w-[220px]"> Last update </SearchResultHeader>,
+    header: "Last update",
     cell: ({ cell }) => {
       const value = cell.getValue() as string;
       const formattedDate = formatDistance(subDays(new Date(value), 3), new Date(), {
@@ -59,23 +42,20 @@ export const columns: ColumnDef<NpmSearchResult>[] = [
 
       return <div className="italic"> {formattedDate} </div>;
     },
-    meta: {
-      className: "w-[220px]",
-    },
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const packageName = row.original.package.name;
+
       return (
-        <div className="">
-          <Button className="cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
-            <ChevronRight />
-          </Button>
-        </div>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`}
+          className="flex justify-end text-gray-500"
+        >
+          <ChevronRight width={18} height={18} />
+        </Link>
       );
-    },
-    meta: {
-      className: "w-[220px] text-right",
     },
   },
 ];

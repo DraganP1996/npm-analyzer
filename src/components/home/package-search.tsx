@@ -30,13 +30,12 @@ export const PackageSearch = ({ className, onSearchChange }: PackageSearchProps)
   };
 
   return (
-    <div
-      className={cn("flex flex-row items-center border-gray-400 border-4 rounded-2xl pr-4 shadow")}
-    >
+    <div className={cn("flex flex-row items-center border rounded-2xl pr-4 shadow-xl bg-white")}>
       <Input
         type="search"
         className={cn(
-          "flex-1 text-2xl md:text-4xl w-2xl px-6 py-8 text-gray-500 font-bold border-transparent focus:border-transparent focus:ring-0 focus:outline-none focus-within:border-transparent focus-within:ring-0 focus-within:outline-none focus-visible:outline-none focus-visible:border-transparent focus-visible:ring-0",
+          "flex-1 w-2xl px-6 py-8 text-gray-600 border-transparent focus:border-transparent focus:ring-0 focus:outline-none focus-within:border-transparent focus-within:ring-0 focus-within:outline-none focus-visible:outline-none focus-visible:border-transparent focus-visible:ring-0",
+          "text-xl md:text-xl text-gray-600 placeholder:text-gray-400",
           className
         )}
         placeholder="Search for a npm package..."

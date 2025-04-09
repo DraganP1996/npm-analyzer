@@ -13,14 +13,18 @@ import { NpmSearchResult } from "@/types";
 
 export default function Home() {
   const [results, setResults] = useState<NpmSearchResult[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handlePackageSearch = async (value: string) => {
     if (value.length === 0) setResults([]);
     if (value.length < 3) return;
 
+    setIsLoading(true);
+
     const { objects } = await searchAPI(value);
 
+    setIsLoading(false);
     setResults(objects);
   };
 
@@ -32,16 +36,26 @@ export default function Home() {
 
   return (
     <div
-      className={cn(
-        "grid-cols-1 justify-items-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]",
-        results.length ? "items-start py-2 px-4" : "items-center content-center p-8 pb-20"
-      )}
+      className={cn("flex-1 flex flex-col gap-16 font-[family-name:var(--font-geist-sans)]")}
+      style={{
+        backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL}/pattern2.png')`,
+      }}
     >
-      <main className={cn("flex flex-col gap-3 sm:items-start")}>
-        <h1 className="font-bold text-6xl text-center text-gray-600"> NPM Checker</h1>
-        <PackageSearch onSearchChange={handlePackageSearch} />
+      <main className={cn("flex-1 flex flex-col gap-3 items-center justify-center")}>
+        <div
+          className={cn(
+            "flex flex-col gap-2 transition-transform duration-500 ease-out",
+            isLoading || results.length ? "mt-0" : "mt--12"
+          )}
+        >
+          <h1 className="text-4xl" style={{ fontFamily: "var(--font-sigmar)" }}>
+            {" "}
+            Analyze dependencies, vulnerabilities & more{" "}
+          </h1>
+          <PackageSearch onSearchChange={handlePackageSearch} />
+        </div>
         {!!results.length && (
-          <div className="container mx-auto py-10">
+          <div className="container mx-auto py-10 transition-all duration-500">
             <DataTable columns={columns} data={results} onRowClick={handleRowClick} />
           </div>
         )}

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Electrolize, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Sigmar } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout";
 
-const geistSans = Electrolize({
-  variable: "--font-geist-sans",
-  weight: ["400"],
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sigmar = Sigmar({
+  variable: "--font-sigmar",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-geist-sans`}>
-        <div className="">
+    <html lang="en" className="flex h-full">
+      <body className={`${geistMono.variable} ${sigmar.variable} antialiased flex-1 flex flex-col`}>
+        <div className="flex-1 flex flex-col">
           <Header />
           {children}
         </div>
