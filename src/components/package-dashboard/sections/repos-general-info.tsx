@@ -1,12 +1,7 @@
-import { EyeIcon, GitFork, StarIcon } from "lucide-react";
-
 import { SimpleCard } from "../../ui/simple-card";
 
 type ReposGeneralInfoProps = {
   defaultBranchName: string;
-  stars: string;
-  forks: string;
-  watchers: string;
   isLocked: boolean;
   isArchived: boolean;
   isDisabled: boolean;
@@ -16,9 +11,6 @@ type ReposGeneralInfoProps = {
 
 export const ReposGeneralInfo = ({
   defaultBranchName,
-  stars,
-  forks,
-  watchers,
   isLocked,
   isArchived,
   isDisabled,
@@ -28,21 +20,6 @@ export const ReposGeneralInfo = ({
   return (
     <div className="flex flex-row gap-2">
       <SimpleCard title="Default Branch">{defaultBranchName}</SimpleCard>
-      <SimpleCard title="Stars">
-        <div className="flex flex-row items-center justify-center gap-1">
-          <StarIcon /> {stars}
-        </div>
-      </SimpleCard>
-      <SimpleCard title="Forks">
-        <div className="flex flex-row items-center justify-center gap-1">
-          <GitFork /> {forks}
-        </div>
-      </SimpleCard>
-      <SimpleCard title="Watchers">
-        <div className="flex flex-row items-center justify-center gap-1">
-          <EyeIcon /> {watchers}
-        </div>
-      </SimpleCard>
       <SimpleCard title="Is Archived?">
         <span className={isLocked ? "text-red-600" : "text-green-600 font-bold"}>
           {isArchived ? "YES" : "NO"}

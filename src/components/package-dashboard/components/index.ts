@@ -5,3 +5,5 @@ export * from "./release-frequency-chart";
 export * from "./top-contributors-chart";
 export * from "./top-contributors-legend";
 export * from "./security-chart";
+export * from "./popularity-card";
+export * from "./popularity-chart";

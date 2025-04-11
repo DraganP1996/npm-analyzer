@@ -13,6 +13,7 @@ import {
   SecurityOverview,
 } from "./sections";
 import { filterStableVersions } from "@/utils/filterStableVersions";
+import { PopularityOverview } from "./sections/popularity-overview";
 
 export type PackageDashboardProps = {
   packageName: string;
@@ -20,6 +21,10 @@ export type PackageDashboardProps = {
 };
 
 export default async function PackageDashboard({ packageName, metadata }: PackageDashboardProps) {
+  const formatter = new Intl.NumberFormat("en", {
+    notation: "compact",
+    compactDisplay: "short",
+  });
   const {
     latestVersion,
     repositoryUrl: metadataRepoUrl,
@@ -66,6 +71,21 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
     authorLink: author?.url || graphQLGithubData?.owner.url,
   };
 
+  const popularityGeneralInfo = {
+    stars:
+      graphQLGithubData && graphQLGithubData.stargazerCount !== undefined
+        ? formatter.format(graphQLGithubData.stargazerCount)
+        : undefined,
+    forks:
+      graphQLGithubData && graphQLGithubData.forkCount !== undefined
+        ? formatter.format(graphQLGithubData.forkCount)
+        : undefined,
+    watchers:
+      graphQLGithubData && graphQLGithubData.watchers !== undefined
+        ? formatter.format(graphQLGithubData.watchers.totalCount)
+        : undefined,
+  };
+
   return (
     <PageContainer>
       <div className="flex flex-row items-center gap-4">
@@ -92,6 +112,7 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
         versions={stableVersions}
         stableVersion={latestVersion}
       />
+      <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
       {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
     </PageContainer>
   );
