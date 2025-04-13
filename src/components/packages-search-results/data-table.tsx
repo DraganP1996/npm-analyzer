@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DataTablePagination } from "../ui/table-pagination";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,12 +47,15 @@ export function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col gap-2">
       <Table className="table-fixed rounded border">
-        <TableHeader className="bg-blue-100/50 rounded">
+        <TableHeader className={cn("bg-blue-100/50 rounded")}>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="rounded">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className={cn(header.column.columnDef.meta?.className)}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}

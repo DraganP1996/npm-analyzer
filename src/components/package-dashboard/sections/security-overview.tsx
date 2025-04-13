@@ -51,7 +51,7 @@ export const SecurityOverview = async ({
         <h2 className="text-3xl font-semibold"> Security Overview</h2>
       </SectionHeader>
       <div className="flex flex-col gap-2">
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col lg:flex-row gap-2">
           <SimpleCard title="Active Vulnerabilities">{latestVersionVlns?.count} </SimpleCard>
           <SimpleCard title="Last Version with Vulnerabilities">
             {lastVersionWithVlns?.version || "N/A"}

@@ -18,7 +18,7 @@ export const ReposGeneralInfo = ({
   isFork,
 }: ReposGeneralInfoProps) => {
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-col lg:flex-row gap-2">
       <SimpleCard title="Default Branch">{defaultBranchName}</SimpleCard>
       <SimpleCard title="Is Archived?">
         <span className={isLocked ? "text-red-600" : "text-green-600 font-bold"}>

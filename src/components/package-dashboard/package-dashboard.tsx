@@ -88,9 +88,9 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
 
   return (
     <PageContainer>
-      <div className="flex flex-row items-center gap-4">
-        <h1 className="text-3xl font-bold">
-          <span className="text-3xl">📦</span> {packageName}
+      <div className="flex flex-col justify-center gap-1">
+        <h1 className="text-2xl lg:text-3xl font-bold pt-2">
+          <span>📦</span> {packageName}
         </h1>
         <span className="flex-1 text-gray-500 text-sm"> {description} </span>
       </div>

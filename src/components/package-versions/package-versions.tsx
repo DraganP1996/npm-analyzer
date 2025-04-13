@@ -6,6 +6,7 @@ import { ChartConfig } from "../ui/chart";
 import { ComplexCard } from "../ui/complex-card";
 import { BreadCrumbNavigation } from "../ui/breadcrumb-navigation";
 import { VersionsChart } from "./components";
+import { mobileVersionColumns } from "./components/mobile-version-columns";
 
 type PackagVersionsProps = {
   versions: Record<string, NpmPackageVersion>;
@@ -60,11 +61,11 @@ export const PackagVersions = ({ versions, orderedVersionNumbers }: PackagVersio
           <span className="text-2xl">📦</span> {packageName}{" "}
         </h2>
       </div>
-      <p>
+      <p className="leading-4">
         A full version history of the {packageName} package with size, number of distributed files
         and dependency evolution.
       </p>
-      <div className="grid grid-cols-3 gap-2 mb-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-2">
         <ComplexCard
           title="Unpacked Size"
           description="Historyical package size changes accross diffent versions of the package"
@@ -92,8 +93,11 @@ export const PackagVersions = ({ versions, orderedVersionNumbers }: PackagVersio
           <VersionsChart chartConfig={chartConfig} data={depsChartData} dataKey="depsCount" />
         </ComplexCard>
       </div>
-      <div className="">
+      <div className="hidden lg:flex">
         <DataTable columns={versionColumns} data={tableData.reverse()} />
+      </div>
+      <div className="flx lg:hidden">
+        <DataTable columns={mobileVersionColumns} data={tableData} />
       </div>
     </PageContainer>
   );

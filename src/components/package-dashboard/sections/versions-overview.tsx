@@ -27,7 +27,7 @@ export const VersionsOverview = ({
   return (
     <div className="flex flex-col gap-2">
       <SectionHeader>
-        <h2 className="text-3xl font-semibold"> Versions Overview</h2>
+        <h2 className="text-xl lg:text-3xl font-semibold"> Versions Overview</h2>
       </SectionHeader>
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2">

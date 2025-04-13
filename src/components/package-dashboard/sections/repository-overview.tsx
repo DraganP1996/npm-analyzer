@@ -50,11 +50,11 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
   return (
     <div className="flex flex-col gap-2">
       <SectionHeader>
-        <h2 className="text-3xl font-semibold"> Repository Overview</h2>
+        <h2 className="text-xl lg:text-3xl font-semibold"> Repository Overview</h2>
       </SectionHeader>
       <ReposGeneralInfo {...leadingInfoProps} />
 
-      <div className="grid grid-cols-[1.7fr_1fr] gap-2">
+      <div className="grid gird-cols-1 lg:grid-cols-[1.7fr_1fr] gap-2">
         <ComplexCard
           title="Latest Commits"
           description="Last 10 commits in the repository"
@@ -85,7 +85,7 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
           <TopContributorsChart history={commitsHistory} />
         </ComplexCard>
       </div>
-      <div className="grid grid-cols-[3fr_1.5fr_2.5fr] gap-2">
+      <div className="grid gird-cols-1 lg:grid-cols-[3fr_1.5fr_2.5fr] gap-2">
         <ComplexCard
           title={`Open PRs (${pullRequests.totalCount})`}
           description="Currently active PR in the repository"

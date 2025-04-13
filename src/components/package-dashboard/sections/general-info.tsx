@@ -20,21 +20,39 @@ export const PackageGeneralInfo = ({
   authorName,
 }: PackageGeneralInfoProps) => {
   return (
-    <div className="flex flex-row gap-3">
-      <SimpleCard title="Weekly Downloads">322K</SimpleCard>
-      <SimpleCard title="Unpacked Size">{unpackedSize}</SimpleCard>
-      <SimpleCard title="Packed Size">{packedSize}</SimpleCard>
-      <SimpleCard title="License">{licence}</SimpleCard>
-      <SimpleCard title="Author">
-        {authorLink ? (
-          <Link href={authorLink} target="_blank">
-            {authorName}
-          </Link>
-        ) : (
-          authorName
-        )}
-      </SimpleCard>
-      <SimpleCard title="Last Activity">{lastActivity}</SimpleCard>
-    </div>
+    <>
+      <div className="hidden lg:flex flex-row gap-0 lg:gap-3 flex-wrap">
+        <SimpleCard title="Weekly Downloads">322K</SimpleCard>
+        <SimpleCard title="Unpacked Size">{unpackedSize}</SimpleCard>
+        <SimpleCard title="Packed Size">{packedSize}</SimpleCard>
+        <SimpleCard title="License">{licence}</SimpleCard>
+        <SimpleCard title="Author">
+          {authorLink ? (
+            <Link href={authorLink} target="_blank">
+              {authorName}
+            </Link>
+          ) : (
+            authorName
+          )}
+        </SimpleCard>
+        <SimpleCard title="Last Activity">{lastActivity}</SimpleCard>
+      </div>
+      <div className="flex lg:hidden flex-row gap-0 lg:gap-3 flex-wrap">
+        <SimpleCard title="Wkly Downloads">322K</SimpleCard>
+        <SimpleCard title="Unpacked Size">{unpackedSize}</SimpleCard>
+        <SimpleCard title="Packed Size">{packedSize}</SimpleCard>
+        <SimpleCard title="License">{licence}</SimpleCard>
+        <SimpleCard title="Author">
+          {authorLink ? (
+            <Link href={authorLink} target="_blank">
+              {authorName}
+            </Link>
+          ) : (
+            authorName
+          )}
+        </SimpleCard>
+        <SimpleCard title="Last Activity">{lastActivity}</SimpleCard>
+      </div>
+    </>
   );
 };

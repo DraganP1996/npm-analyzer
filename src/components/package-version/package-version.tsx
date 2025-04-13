@@ -55,11 +55,11 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
     <PageContainer>
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
 
-      <h1 className="font-bold text-3xl">Version Details</h1>
+      <h1 className="font-bold text-2xl lg:text-3xl">Version Details</h1>
 
       <div className="flex flex-row items-center justify-between ">
-        <div className="flex flex-row items-center text-xl font-semibold gap-1">
-          <span className="text-2xl">📦</span> <h2>{packageName}</h2>
+        <div className="flex flex-row items-center text-lg lg:text-xl font-semibold gap-1">
+          <span className="text:xl lg:text-2xl">📦</span> <h2>{packageName}</h2>
         </div>
         <Badge> {version.version} </Badge>
       </div>
@@ -67,20 +67,23 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
       <Tabs defaultValue="allVulnerabilities" className="w-full">
         <TabsList className="w-full">
           <TabsTrigger value="allVulnerabilities" className="cursor-pointer">
-            <h3 className="text-lg">All Vulnerabilities</h3>
+            <h3 className="text-md lg:text-lg">All Vulnerabilities</h3>
           </TabsTrigger>
           <TabsTrigger value="transitiveDependencies" className="cursor-pointer">
-            <h3 className="text-lg">Transitive Dependencies</h3>
+            <h3 className="text-md lg:text-lg">Transitive Dependencies</h3>
           </TabsTrigger>
           <TabsTrigger value="package" className="cursor-pointer">
-            <h3 className="text-lg">Package</h3>
+            <h3 className="text-md lg:text-lg">Package</h3>
           </TabsTrigger>
         </TabsList>
         <TabsContent value="allVulnerabilities">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
-              <h3 className="mt-6 text-xl font-semibold"> All Security Vulnerabilities </h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="mt-6 text-lg lg:text-xl font-semibold">
+                {" "}
+                All Security Vulnerabilities{" "}
+              </h3>
+              <p className="text-xs lg:text-sm text-gray-500">
                 All the vulnerabilities related to the version {version.version} of the package
               </p>
             </div>
