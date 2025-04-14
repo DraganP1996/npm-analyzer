@@ -3,8 +3,7 @@ import { TriangleAlertIcon } from "lucide-react";
 
 import { PageContainer } from "../layout/page-container";
 import { BreadCrumbNavigation } from "../ui/breadcrumb-navigation";
-import { NpmPackageVersion } from "@/types/package-metadata";
-import { getTransitiveDependenies } from "@/lib";
+import { getPackage, getTransitiveDependenies } from "@/lib";
 import { getVlnsForMultiplePkgs } from "@/lib/ovs";
 import { Badge } from "../ui/badge";
 import { DirectVulnerabilities } from "./sections";
@@ -14,11 +13,25 @@ import { cn } from "@/lib/utils";
 import { CACHE_TAGS } from "@/consts";
 
 type PackageVersionSpecificPageProps = {
-  version: NpmPackageVersion;
+  version: string;
   packageName: string;
 };
 
 export const PackageVersion = async ({ version, packageName }: PackageVersionSpecificPageProps) => {
+  const metadata = await getPackage(packageName);
+  const versionMetadata = metadata.stableVersions[version];
+
+  const topLevelDeps = {
+    ...versionMetadata.dependencies,
+  };
+
+  const transitiveDependencies = await getTransitiveDependenies(topLevelDeps);
+
+  const ovsData = await getVlnsForMultiplePkgs(
+    `${CACHE_TAGS.ovsIncludingTransitive}:${packageName}@${versionMetadata.version}`,
+    [versionMetadata, ...transitiveDependencies]
+  );
+
   const breadcrumbNavigationItems = [
     {
       title: packageName,
@@ -29,23 +42,10 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
       href: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
     },
     {
-      title: version.version,
+      title: versionMetadata.version,
       href: "",
     },
   ];
-
-  const topLevelDeps = {
-    ...version.dependencies,
-  };
-
-  const transitiveDependencies = await getTransitiveDependenies(topLevelDeps);
-
-  console.log("Check the transitive deps", transitiveDependencies);
-
-  const ovsData = await getVlnsForMultiplePkgs(
-    `${CACHE_TAGS.ovsIncludingTransitive}:${packageName}@${version.version}`,
-    [version, ...transitiveDependencies]
-  );
 
   const directVlns = ovsData.filter((ovsItem) => ovsItem.packageName === packageName);
 
@@ -61,7 +61,7 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
         <div className="flex flex-row items-center text-lg lg:text-xl font-semibold gap-1">
           <span className="text:xl lg:text-2xl">📦</span> <h2>{packageName}</h2>
         </div>
-        <Badge> {version.version} </Badge>
+        <Badge> {versionMetadata.version} </Badge>
       </div>
 
       <Tabs defaultValue="allVulnerabilities" className="w-full">
@@ -84,7 +84,8 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
                 All Security Vulnerabilities{" "}
               </h3>
               <p className="text-xs lg:text-sm text-gray-500">
-                All the vulnerabilities related to the version {version.version} of the package
+                All the vulnerabilities related to the version {versionMetadata.version} of the
+                package
               </p>
             </div>
             <Accordion
@@ -168,9 +169,6 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
           <DirectVulnerabilities vulnerabilities={directVlns} />{" "}
         </TabsContent>
       </Tabs>
-
-      {/* <DirectVulnerabilities vulnerabilities={directVlns} /> */}
-
       {/* <h3 className="mt-6 text-lg font-semibold">Transitive Dependencies</h3> */}
       {/* <ul className="list-disc pl-6 text-base">
         {transitiveDependencies.map((dep) => (

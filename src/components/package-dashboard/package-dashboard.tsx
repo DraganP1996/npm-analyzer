@@ -1,9 +1,8 @@
 import { formatDistance, subDays } from "date-fns";
 
 import { extractGitHubRepo, formatBytes, getPackagePackedSize } from "@/utils";
-import { getRepoInfoQuery, getGithub } from "@/lib";
+import { getRepoInfoQuery, getGithub, getPackage } from "@/lib";
 import { PageContainer } from "../layout/page-container";
-import { NpmFormattedMetadata } from "../pages";
 
 import {
   PackageGeneralInfo,
@@ -14,17 +13,19 @@ import {
 } from "./sections";
 import { filterStableVersions } from "@/utils/filterStableVersions";
 import { PopularityOverview } from "./sections/popularity-overview";
+import { Suspense } from "react";
 
 export type PackageDashboardProps = {
   packageName: string;
-  metadata: NpmFormattedMetadata;
 };
 
-export default async function PackageDashboard({ packageName, metadata }: PackageDashboardProps) {
+export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
   const formatter = new Intl.NumberFormat("en", {
     notation: "compact",
     compactDisplay: "short",
   });
+  const metadata = await getPackage(packageName);
+
   const {
     latestVersion,
     repositoryUrl: metadataRepoUrl,
@@ -107,13 +108,20 @@ export default async function PackageDashboard({ packageName, metadata }: Packag
         packageName={packageName}
         lastVersion={latestVersion}
       />
-      <SecurityOverview
-        packageName={packageName}
-        versions={stableVersions}
-        stableVersion={latestVersion}
-      />
-      <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
-      {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
+      <Suspense fallback={<p> Loading ....</p>}>
+        <SecurityOverview
+          packageName={packageName}
+          versions={stableVersions}
+          stableVersion={latestVersion}
+        />
+      </Suspense>
+
+      <Suspense fallback={<p> Loading ....</p>}>
+        <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
+      </Suspense>
+      <Suspense fallback={<p> Loading ....</p>}>
+        {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
+      </Suspense>
     </PageContainer>
   );
 }

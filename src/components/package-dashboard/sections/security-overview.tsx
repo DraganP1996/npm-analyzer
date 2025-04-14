@@ -5,6 +5,7 @@ import { getVlnsForMultiplePkgs } from "@/lib/ovs";
 import { CACHE_TAGS } from "@/consts";
 import { ChartConfig } from "@/components/ui/chart";
 import { SecurityCard } from "../components/security-card";
+import { Suspense } from "react";
 
 type SecurityOverviewProps = {
   packageName: string;
@@ -50,21 +51,23 @@ export const SecurityOverview = async ({
       <SectionHeader>
         <h2 className="text-3xl font-semibold"> Security Overview</h2>
       </SectionHeader>
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col lg:flex-row gap-2">
-          <SimpleCard title="Active Vulnerabilities">{latestVersionVlns?.count} </SimpleCard>
-          <SimpleCard title="Last Version with Vulnerabilities">
-            {lastVersionWithVlns?.version || "N/A"}
-          </SimpleCard>
-          <SimpleCard title="N. of Versions">X</SimpleCard>
+      <Suspense fallback={<p> Loading ...</p>}>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col lg:flex-row gap-2">
+            <SimpleCard title="Active Vulnerabilities">{latestVersionVlns?.count} </SimpleCard>
+            <SimpleCard title="Last Version with Vulnerabilities">
+              {lastVersionWithVlns?.version || "N/A"}
+            </SimpleCard>
+            <SimpleCard title="N. of Versions">X</SimpleCard>
+          </div>
+          <SecurityCard
+            config={chartConfig}
+            data={versionsVlnCounter}
+            packageName={packageName}
+            stableVersion={stableVersion}
+          />
         </div>
-        <SecurityCard
-          config={chartConfig}
-          data={versionsVlnCounter}
-          packageName={packageName}
-          stableVersion={stableVersion}
-        />
-      </div>
+      </Suspense>
     </div>
   );
 };

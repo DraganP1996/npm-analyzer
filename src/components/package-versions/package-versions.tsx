@@ -7,16 +7,16 @@ import { ComplexCard } from "../ui/complex-card";
 import { BreadCrumbNavigation } from "../ui/breadcrumb-navigation";
 import { VersionsChart } from "./components";
 import { mobileVersionColumns } from "./components/mobile-version-columns";
+import { getPackage } from "@/lib";
+import { filterStableVersions } from "@/utils";
 
 type PackagVersionsProps = {
-  versions: Record<string, NpmPackageVersion>;
-  orderedVersionNumbers: string[];
+  packageName: string;
 };
 
-export const PackagVersions = ({ versions, orderedVersionNumbers }: PackagVersionsProps) => {
-  const packageName = versions[orderedVersionNumbers[0]].name;
+export const PackagVersions = async ({ packageName }: PackagVersionsProps) => {
+  const metadata = await getPackage(packageName);
   const tableData: NpmPackageVersion[] = [];
-
   const breadcrumbNavigationItems = [
     {
       title: packageName,
@@ -27,8 +27,9 @@ export const PackagVersions = ({ versions, orderedVersionNumbers }: PackagVersio
       href: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
     },
   ];
+  const orderedVersionNumbers = filterStableVersions(Object.keys(metadata.stableVersions));
 
-  orderedVersionNumbers.forEach((version) => tableData.push(versions[version]));
+  orderedVersionNumbers.forEach((version) => tableData.push(metadata.stableVersions[version]));
 
   const reverseTable = tableData.reverse();
   const packageSizeChartData = reverseTable.filter((item) => item.dist.unpackedSize !== undefined);

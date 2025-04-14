@@ -1,8 +1,9 @@
+import { Suspense } from "react";
+
 import PackageDashboard from "@/components/package-dashboard/package-dashboard";
 import { PackagVersions } from "@/components/package-versions/package-versions";
 import { PackageVersion } from "@/components/package-version/package-version";
-import { extractPackageFromUrl, filterStableVersions } from "@/utils";
-import { getPackage } from "@/lib";
+import { extractPackageFromUrl } from "@/utils";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
@@ -22,30 +23,21 @@ export default async function Page({ params }: PageProps) {
   if (!packageName) {
     return <div>Redirect to home</div>;
   }
-  const packageData = await getPackage(packageName);
-
-  const orderedVersionNumbers = filterStableVersions(Object.keys(packageData.stableVersions));
 
   if (!version && versionsPath === "versions") {
-    return (
-      <PackagVersions
-        versions={packageData.stableVersions}
-        orderedVersionNumbers={orderedVersionNumbers}
-      />
-    );
+    return <PackagVersions packageName={packageName} />;
   } else if (!version && versionsPath && versionsPath !== "versions") {
     return <div> 404 </div>;
   } else if (!version && !versionsPath) {
-    return <PackageDashboard packageName={packageName} metadata={{ ...packageData }} />;
+    return (
+      <Suspense fallback={<p> Loading </p>}>
+        <PackageDashboard packageName={packageName} />
+      </Suspense>
+    );
   }
 
   if (version && !section) {
-    return (
-      <PackageVersion
-        version={packageData.stableVersions[version]}
-        packageName={packageData.name}
-      />
-    );
+    return <PackageVersion version={version} packageName={packageName} />;
   }
 
   if (!section) {
