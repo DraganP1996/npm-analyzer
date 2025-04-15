@@ -28,7 +28,12 @@ export const ListItemWithDateAuthor = ({
 
   return (
     <div className="p-2 hover:bg-blue-200/50 cursor-pointer rounded hover:shadow flex flex-col gap-2">
-      <Link href={url} className="leading-5 break-all text-sm line-clamp-3 w-full" target="_blank">
+      <Link
+        href={url}
+        className="leading-5 break-all text-sm line-clamp-3 w-full"
+        target="_blank"
+        prefetch={false}
+      >
         {text}
       </Link>
       <div
@@ -38,7 +43,12 @@ export const ListItemWithDateAuthor = ({
         )}
       >
         {!hideAuthor && (
-          <Link href={authorLink} className="flex flex-row gap-1 items-center" target="_blank">
+          <Link
+            href={authorLink}
+            className="flex flex-row gap-1 items-center"
+            target="_blank"
+            prefetch={false}
+          >
             <Avatar>
               <AvatarImage src={avatarUrl} />
             </Avatar>

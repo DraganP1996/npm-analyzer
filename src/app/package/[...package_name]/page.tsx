@@ -4,6 +4,7 @@ import PackageDashboard from "@/components/package-dashboard/package-dashboard";
 import { PackagVersions } from "@/components/package-versions/package-versions";
 import { PackageVersion } from "@/components/package-version/package-version";
 import { extractPackageFromUrl } from "@/utils";
+import { DashboardSkeleton } from "@/components/package-dashboard/skeletons/dashboard-skeleton";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
@@ -30,7 +31,7 @@ export default async function Page({ params }: PageProps) {
     return <div> 404 </div>;
   } else if (!version && !versionsPath) {
     return (
-      <Suspense fallback={<p> Loading </p>}>
+      <Suspense fallback={<DashboardSkeleton />}>
         <PackageDashboard packageName={packageName} />
       </Suspense>
     );

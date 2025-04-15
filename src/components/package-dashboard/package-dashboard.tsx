@@ -14,6 +14,8 @@ import {
 import { filterStableVersions } from "@/utils/filterStableVersions";
 import { PopularityOverview } from "./sections/popularity-overview";
 import { Suspense } from "react";
+import { SecurityOverviewSkeleton } from "./skeletons/security-overview-skeleton";
+import { PopularityOverviewSkeleton } from "./skeletons/popularity-overview-skeleton";
 
 export type PackageDashboardProps = {
   packageName: string;
@@ -108,7 +110,7 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
         packageName={packageName}
         lastVersion={latestVersion}
       />
-      <Suspense fallback={<p> Loading ....</p>}>
+      <Suspense fallback={<SecurityOverviewSkeleton />}>
         <SecurityOverview
           packageName={packageName}
           versions={stableVersions}
@@ -116,7 +118,7 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
         />
       </Suspense>
 
-      <Suspense fallback={<p> Loading ....</p>}>
+      <Suspense fallback={<PopularityOverviewSkeleton />}>
         <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
       </Suspense>
       <Suspense fallback={<p> Loading ....</p>}>

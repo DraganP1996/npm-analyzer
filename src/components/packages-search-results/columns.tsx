@@ -52,6 +52,7 @@ export const columns: ColumnDef<NpmSearchResult>[] = [
         <Link
           href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`}
           className="flex justify-end text-gray-500"
+          prefetch={false}
         >
           <ChevronRight width={18} height={18} />
         </Link>

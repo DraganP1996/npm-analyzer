@@ -28,7 +28,7 @@ export const PackageGeneralInfo = ({
         <SimpleCard title="License">{licence}</SimpleCard>
         <SimpleCard title="Author">
           {authorLink ? (
-            <Link href={authorLink} target="_blank">
+            <Link href={authorLink} target="_blank" prefetch={false}>
               {authorName}
             </Link>
           ) : (
@@ -44,7 +44,7 @@ export const PackageGeneralInfo = ({
         <SimpleCard title="License">{licence}</SimpleCard>
         <SimpleCard title="Author">
           {authorLink ? (
-            <Link href={authorLink} target="_blank">
+            <Link href={authorLink} target="_blank" prefetch={false}>
               {authorName}
             </Link>
           ) : (
