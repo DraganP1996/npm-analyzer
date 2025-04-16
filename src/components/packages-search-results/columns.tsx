@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import { NpmSearchResult } from "@/types";
 import { Badge } from "../ui/badge";
+import { compactNumberFormatter } from "@/utils";
 
 export const columns: ColumnDef<NpmSearchResult>[] = [
   {
@@ -26,7 +27,7 @@ export const columns: ColumnDef<NpmSearchResult>[] = [
     header: "Monthly downloads",
     cell: ({ cell }) => {
       const value = cell.getValue() as number;
-      const formattedValue = Intl.NumberFormat("en", { notation: "compact" }).format(value);
+      const formattedValue = compactNumberFormatter(value);
 
       return formattedValue;
     },

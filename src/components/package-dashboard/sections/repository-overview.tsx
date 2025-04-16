@@ -4,16 +4,13 @@ import { ReposGeneralInfo } from "./repos-general-info";
 import { ListItemWithDateAuthor } from "@/components/ui/list-item-with-date-author";
 import { ComplexCard } from "@/components/ui/complex-card";
 import { CardNoData } from "@/components/ui/card-no-data";
+import { compactNumberFormatter } from "@/utils";
 
 type RepositoryOverviewProps = {
   repository: GraphQLGithubRepository;
 };
 
 export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
-  const formatter = new Intl.NumberFormat("en", {
-    notation: "compact",
-    compactDisplay: "short",
-  });
   const {
     last10Commits,
     stargazerCount,
@@ -32,9 +29,9 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
 
   const leadingInfoProps = {
     defaultBranchName: last10Commits.name,
-    stars: formatter.format(stargazerCount),
-    forks: formatter.format(forkCount),
-    watchers: formatter.format(watchers.totalCount),
+    stars: compactNumberFormatter(stargazerCount),
+    forks: compactNumberFormatter(forkCount),
+    watchers: compactNumberFormatter(watchers.totalCount),
     isLocked,
     isArchived,
     isDisabled: idDisabled,

@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 
 import PackageDashboard from "@/components/package-dashboard/package-dashboard";
-import { PackagVersions } from "@/components/package-versions/package-versions";
+import { PackageVersions } from "@/components/package-versions/package-versions";
 import { PackageVersion } from "@/components/package-version/package-version";
 import { extractPackageFromUrl } from "@/utils";
 import { DashboardSkeleton } from "@/components/package-dashboard/skeletons/dashboard-skeleton";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
+
+export const revalidate = 86400;
 
 export default async function Page({ params }: PageProps) {
   const { package_name } = await params;
@@ -26,7 +28,7 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (!version && versionsPath === "versions") {
-    return <PackagVersions packageName={packageName} />;
+    return <PackageVersions packageName={packageName} />;
   } else if (!version && versionsPath && versionsPath !== "versions") {
     return <div> 404 </div>;
   } else if (!version && !versionsPath) {

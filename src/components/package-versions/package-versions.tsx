@@ -14,7 +14,7 @@ type PackagVersionsProps = {
   packageName: string;
 };
 
-export const PackagVersions = async ({ packageName }: PackagVersionsProps) => {
+export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
   const metadata = await getPackage(packageName);
   const tableData: NpmPackageVersion[] = [];
   const breadcrumbNavigationItems = [
@@ -23,7 +23,7 @@ export const PackagVersions = async ({ packageName }: PackagVersionsProps) => {
       href: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`,
     },
     {
-      title: "versions",
+      title: "Versions",
       href: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
     },
   ];

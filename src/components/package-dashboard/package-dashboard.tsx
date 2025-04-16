@@ -1,6 +1,11 @@
 import { formatDistance, subDays } from "date-fns";
 
-import { extractGitHubRepo, formatBytes, getPackagePackedSize } from "@/utils";
+import {
+  compactNumberFormatter,
+  extractGitHubRepo,
+  formatBytes,
+  getPackagePackedSize,
+} from "@/utils";
 import { getRepoInfoQuery, getGithub, getPackage } from "@/lib";
 import { PageContainer } from "../layout/page-container";
 
@@ -22,10 +27,6 @@ export type PackageDashboardProps = {
 };
 
 export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
-  const formatter = new Intl.NumberFormat("en", {
-    notation: "compact",
-    compactDisplay: "short",
-  });
   const metadata = await getPackage(packageName);
 
   const {
@@ -77,15 +78,15 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
   const popularityGeneralInfo = {
     stars:
       graphQLGithubData && graphQLGithubData.stargazerCount !== undefined
-        ? formatter.format(graphQLGithubData.stargazerCount)
+        ? compactNumberFormatter(graphQLGithubData.stargazerCount)
         : undefined,
     forks:
       graphQLGithubData && graphQLGithubData.forkCount !== undefined
-        ? formatter.format(graphQLGithubData.forkCount)
+        ? compactNumberFormatter(graphQLGithubData.forkCount)
         : undefined,
     watchers:
       graphQLGithubData && graphQLGithubData.watchers !== undefined
-        ? formatter.format(graphQLGithubData.watchers.totalCount)
+        ? compactNumberFormatter(graphQLGithubData.watchers.totalCount)
         : undefined,
   };
 

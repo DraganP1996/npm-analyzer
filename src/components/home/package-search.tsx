@@ -46,10 +46,10 @@ export const PackageSearch = ({ className, onSearchChange }: PackageSearchProps)
         onChange={handleChange}
         value={value}
       />
-      {!value && <SearchIcon className="w-[20px] h-[20px] lg:w-[50px] lg:h-[50px] text-gray-400" />}
+      {!value && <SearchIcon className="w-[20px] h-[20px] lg:w-[50px] lg:h-[50px] text-blue-400" />}
       {value && (
         <XIcon
-          className="w-[20px] h-[20px] lg:w-[50px] lg:h-[50px] text-gray-400 cursor-pointer"
+          className="w-[20px] h-[20px] lg:w-[50px] lg:h-[50px] cursor-pointer text-blue-400"
           onClick={handleClear}
         />
       )}

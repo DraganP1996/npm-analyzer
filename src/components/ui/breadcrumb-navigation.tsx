@@ -19,7 +19,7 @@ type BreadCrumbNavigationProps = {
 
 export const BreadCrumbNavigation = ({ items }: BreadCrumbNavigationProps) => {
   return (
-    <Breadcrumb>
+    <Breadcrumb className="p-2">
       <BreadcrumbList>
         {items.map((item, index) => {
           if (index !== items.length - 1) {
