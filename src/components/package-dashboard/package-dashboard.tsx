@@ -8,6 +8,7 @@ import {
   extractGitHubRepo,
   formatBytes,
   getPackagePackedSize,
+  parsePackageDescription,
 } from "@/utils";
 import { getRepoInfoQuery, getGithub, getPackage } from "@/lib";
 import { PageContainer } from "../layout/page-container";
@@ -72,6 +73,8 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
     description,
     stableVersions,
   } = metadata;
+
+  const parsedDescription = await parsePackageDescription(description || "");
 
   const { dist, repository, version, dependencies, devDependencies, peerDependencies } =
     stableVersions[latestVersion];
@@ -178,7 +181,10 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
           <h1 className="text-2xl lg:text-3xl font-bold pt-2">
             <span>📦</span> {packageName}
           </h1>
-          <span className="flex-1 text-gray-500 text-sm"> {description} </span>
+          <span
+            className="flex-1 text-gray-500 text-sm"
+            dangerouslySetInnerHTML={{ __html: parsedDescription }}
+          />
         </div>
         <PackageGeneralInfo {...packageLeadingInfo} />
         <DependenciesOverview

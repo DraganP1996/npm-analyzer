@@ -1,17 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { LoaderCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { PackageSearch } from "./package-search";
 import { NpmSearchResult } from "@/types";
 import { searchAPI } from "@/actions";
 import { PageContainer } from "../layout";
-import { LoaderCircle } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { compactNumberFormatter } from "@/utils";
+import { SearchResult } from "./serch-result";
 
 export const Home = () => {
   const [results, setResults] = useState<NpmSearchResult[]>([]);
@@ -55,30 +53,13 @@ export const Home = () => {
           <Card>
             <CardContent className="flex flex-col gap-2">
               {results.map((searchItem) => (
-                <Link
+                <SearchResult
                   key={searchItem.package.name}
-                  className="p-4 border rounded-xl flex flex-col gap-2 bg-blue-50/30 hover:bg-blue-100"
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${searchItem.package.name}`}
-                >
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex flex-col gap-1">
-                      <span className="text-xl font-semibold">{searchItem.package.name}</span>
-                      <p className="leading-4 text-sm text-gray-500 line-clamp-3">
-                        {searchItem.package.description}
-                      </p>
-                    </div>
-                    <div className="">
-                      <Badge> {searchItem.package.version} </Badge>
-                    </div>
-                  </div>
-                  <p className="text-xs">
-                    {" "}
-                    N. of dependent packages:{" "}
-                    <span className="font-semibold">
-                      {compactNumberFormatter(searchItem.dependents)}
-                    </span>
-                  </p>
-                </Link>
+                  packageName={searchItem.package.name}
+                  version={searchItem.package.version}
+                  description={searchItem.package.description}
+                  dependents={searchItem.dependents}
+                />
               ))}
             </CardContent>
           </Card>
