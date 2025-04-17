@@ -32,7 +32,7 @@ export const DependenciesCard = ({ title, description, dependencies }: Dependenc
       title={`${title} (${dependencyNames.length})`}
       description={description}
       showInfoIcon
-      className="w-full lg:w-[350px] flex"
+      className="w-full flex"
       contentClassName="min-h-[200px] max-h-[260px] overflow-auto"
     >
       {!hasDependencies ? (

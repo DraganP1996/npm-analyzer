@@ -1,4 +1,7 @@
 import { formatDistance, subDays } from "date-fns";
+import { Metadata } from "next";
+import { TechArticle, WithContext } from "schema-dts";
+import Script from "next/script";
 
 import {
   compactNumberFormatter,
@@ -25,6 +28,38 @@ import { PopularityOverviewSkeleton } from "./skeletons/popularity-overview-skel
 export type PackageDashboardProps = {
   packageName: string;
 };
+
+export function generatePackageDashoardMetadata(packageName: string): Metadata {
+  const title = `${packageName} — Analyze Size, Security, Dependencies & Versions | npmcheck`;
+  const description = `Get full insights into ${packageName}: size, vulnerabilities, dependencies, popularity, and version history. Updated stats with GitHub and npm data.`;
+
+  return {
+    title,
+    description,
+    authors: [{ name: "Dragan Petrovic", url: "https://github.com/DraganP1996" }],
+    creator: "Dragan Petrovic",
+    publisher: "Dragan Petrovic",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`,
+    },
+    keywords: `${packageName}, npm ${packageName}, ${packageName} versions, ${packageName} vulnerabilities, ${packageName} size, npm audit, open source package analysis, github ${packageName}`,
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`,
+      siteName: "JSONs Formatter",
+      locale: "en",
+      type: "article",
+      authors: ["Dragan Petrovic"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+    },
+    bookmarks: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`,
+  };
+}
 
 export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
   const metadata = await getPackage(packageName);
@@ -90,41 +125,89 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
         : undefined,
   };
 
-  return (
-    <PageContainer>
-      <div className="flex flex-col justify-center gap-1">
-        <h1 className="text-2xl lg:text-3xl font-bold pt-2">
-          <span>📦</span> {packageName}
-        </h1>
-        <span className="flex-1 text-gray-500 text-sm"> {description} </span>
-      </div>
-      <PackageGeneralInfo {...packageLeadingInfo} />
-      <DependenciesOverview
-        packageName={packageName}
-        deps={dependencies}
-        peerDeps={peerDependencies}
-        devDeps={devDependencies}
-      />
-      <VersionsOverview
-        versions={versionNumbers}
-        history={releaseHistoryRecord}
-        packageName={packageName}
-        lastVersion={latestVersion}
-      />
-      <Suspense fallback={<SecurityOverviewSkeleton />}>
-        <SecurityOverview
-          packageName={packageName}
-          versions={stableVersions}
-          stableVersion={latestVersion}
-        />
-      </Suspense>
+  const title = `${packageName} — Analyze Size, Security, Dependencies & Versions | npmcheck`;
+  const desc = `Get full insights into ${packageName}: size, vulnerabilities, dependencies, popularity, and version history. Updated stats with GitHub and npm data.`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`;
+  const keywords = `${packageName}, npm ${packageName}, ${packageName} versions, ${packageName} vulnerabilities, ${packageName} size, npm audit, open source package analysis, github ${packageName}`;
 
-      <Suspense fallback={<PopularityOverviewSkeleton />}>
-        <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
-      </Suspense>
-      <Suspense fallback={<p> Loading ....</p>}>
-        {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
-      </Suspense>
-    </PageContainer>
+  const jsonLd: WithContext<TechArticle> = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: title,
+    description: desc,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    author: {
+      "@type": "Person",
+      name: "Dragan Petrovic",
+      url: "https://github.com/DraganP1996",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Dragan Petrovic",
+      url: "https://github.com/DraganP1996",
+    },
+    keywords: keywords,
+    about: {
+      "@type": "WebApplication",
+      name: title,
+      url: url,
+      browserRequirements: "Requires modern browsers (Chrome, Firefox, Safari)",
+      applicationCategory: "Utilities",
+      operatingSystem: "All",
+      offers: {
+        "@type": "Offer",
+        price: "0.00",
+        priceCurrency: "EUR",
+      },
+    },
+  };
+
+  return (
+    <>
+      <Script
+        id="json-formatter-structured-data"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PageContainer>
+        <div className="flex flex-col justify-center gap-1">
+          <h1 className="text-2xl lg:text-3xl font-bold pt-2">
+            <span>📦</span> {packageName}
+          </h1>
+          <span className="flex-1 text-gray-500 text-sm"> {description} </span>
+        </div>
+        <PackageGeneralInfo {...packageLeadingInfo} />
+        <DependenciesOverview
+          packageName={packageName}
+          deps={dependencies}
+          peerDeps={peerDependencies}
+          devDeps={devDependencies}
+        />
+        <VersionsOverview
+          versions={versionNumbers}
+          history={releaseHistoryRecord}
+          packageName={packageName}
+          lastVersion={latestVersion}
+        />
+        <Suspense fallback={<SecurityOverviewSkeleton />}>
+          <SecurityOverview
+            packageName={packageName}
+            versions={stableVersions}
+            stableVersion={latestVersion}
+          />
+        </Suspense>
+
+        <Suspense fallback={<PopularityOverviewSkeleton />}>
+          <PopularityOverview packageName={packageName} {...popularityGeneralInfo} />
+        </Suspense>
+        <Suspense fallback={<p> Loading ....</p>}>
+          {graphQLGithubData && <RepositoryOverview repository={graphQLGithubData} />}
+        </Suspense>
+      </PageContainer>
+    </>
   );
 }
