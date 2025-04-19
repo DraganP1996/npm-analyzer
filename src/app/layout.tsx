@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Sigmar } from "next/font/google";
+import { Geist_Mono, Lato } from "next/font/google";
+
 import "./globals.css";
 import { Header } from "@/components/layout";
 
@@ -8,9 +9,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const sigmar = Sigmar({
+const sigmar = Lato({
   variable: "--font-sigmar",
-  weight: "400",
+  weight: "700",
   subsets: ["latin"],
 });
 

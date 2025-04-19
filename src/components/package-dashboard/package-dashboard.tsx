@@ -176,7 +176,7 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PageContainer>
+      <PageContainer className="pb-4">
         <div className="flex flex-col justify-center gap-1">
           <h1 className="text-2xl lg:text-3xl font-bold pt-2">
             <span>📦</span> {packageName}

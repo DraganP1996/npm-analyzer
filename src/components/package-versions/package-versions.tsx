@@ -50,7 +50,7 @@ export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
   } satisfies ChartConfig;
 
   return (
-    <PageContainer>
+    <PageContainer className="pb-4">
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
       <div className="flex flex-row gap-1 items-center">
         <h1 className="font-bold text-3xl"> Versions</h1>

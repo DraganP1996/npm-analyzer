@@ -28,7 +28,7 @@ export const Home = () => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer className="pb-4">
       <div
         className={cn(
           "flex flex-col gap-2 transition-[margin] duration-500 ease-out mx-2 lg:mx-0",
@@ -36,7 +36,7 @@ export const Home = () => {
         )}
       >
         <h1
-          className="text-2xl sm:text-2xl lg:text-4xl"
+          className="text-2xl sm:text-2xl lg:text-4xl font-bold"
           style={{ fontFamily: "var(--font-sigmar)" }}
         >
           Analyze dependencies, vulnerabilities & more

@@ -12,12 +12,7 @@ type PopularityCardProps = {
   packageName: string;
 };
 
-export const PopularityCard = ({
-  config,
-  data,
-}: // packageName,
-// stableVersion,
-PopularityCardProps) => {
+export const PopularityCard = ({ config, data }: PopularityCardProps) => {
   return (
     <ComplexCard
       title="Downloads History"

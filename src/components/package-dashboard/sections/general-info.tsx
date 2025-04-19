@@ -21,7 +21,7 @@ export const PackageGeneralInfo = ({
 }: PackageGeneralInfoProps) => {
   return (
     <>
-      <div className="hidden lg:flex flex-row gap-0 lg:gap-3 flex-wrap">
+      <div className="hidden lg:flex flex-row gap-1 lg:gap-3 flex-wrap">
         <SimpleCard title="Author">
           {authorLink ? (
             <Link href={authorLink} target="_blank" prefetch={false}>
@@ -36,7 +36,7 @@ export const PackageGeneralInfo = ({
         <SimpleCard title="Packed Size">{packedSize}</SimpleCard>
         <SimpleCard title="Last Activity">{lastActivity}</SimpleCard>
       </div>
-      <div className="flex lg:hidden flex-row gap-0 lg:gap-3 flex-wrap">
+      <div className="flex lg:hidden flex-row gap-2 lg:gap-3 flex-wrap">
         <SimpleCard title="Wkly Downloads">322K</SimpleCard>
         <SimpleCard title="Unpacked Size">{unpackedSize}</SimpleCard>
         <SimpleCard title="Packed Size">{packedSize}</SimpleCard>

@@ -42,7 +42,9 @@ export const DependenciesCard = ({ title, description, dependencies }: Dependenc
           {dependencyNames.map((name) => (
             <DependencyItem key={name} href={`${process.env.NEXT_PUBLIC_BASE_URL}/package/${name}`}>
               <span className="font-semibold italic"> {name} </span>
-              <Badge className="max-w-[120px]"> {dependencies![name]} </Badge>
+              <Badge className="max-w-[120px] truncate block" title={dependencies?.[name] || ""}>
+                {dependencies?.[name] || ""}
+              </Badge>
             </DependencyItem>
           ))}
         </div>

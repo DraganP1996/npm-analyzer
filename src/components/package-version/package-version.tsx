@@ -49,8 +49,6 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
 
   const directVlns = ovsData.filter((ovsItem) => ovsItem.packageName === packageName);
 
-  console.log("Check ovs data", ovsData);
-
   return (
     <PageContainer>
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />

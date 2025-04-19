@@ -88,7 +88,6 @@ type RepositoryDefaultBranch = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules: WithNodes<any>;
   target: {
-    commitUrl: string;
     history: {
       nodes: RepositoryCommit[];
     };
@@ -113,12 +112,9 @@ export type GraphQLGithubRepository = {
   homepageUrl: string;
   pushedAt: string;
   discussions: WithNodes<RepositoryDiscussion>;
-  fundingLinks: unknown[];
   issues: WithNodes<RepositoryIssue>;
   milestones: WithNodes<RepositoryMilestone>;
   pullRequests: WithNodes<RepositoryPullRequest>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  vulnerabilityAlerts: any;
   last10Commits: RepositoryDefaultBranch;
   commitsHistory: HistoryCommit;
   owner: {

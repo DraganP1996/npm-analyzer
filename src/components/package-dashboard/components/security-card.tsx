@@ -20,7 +20,7 @@ export const SecurityCard = ({ config, data, packageName, stableVersion }: Secur
       title="Vulnerabilities Tracker"
       description="Historycal data about package vulnerabilities across all the stable versions"
       showInfoIcon
-      contentClassName="max-h-[350px]"
+      contentClassName="max-h-[380px]"
     >
       <SecurityChart config={config} data={data} />
       <div className="flex flex-col gap-2">

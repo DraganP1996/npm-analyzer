@@ -18,7 +18,7 @@ export const DependenciesOverview = ({
   devDeps,
 }: DependenciesOverviewProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       <SectionHeader>
         <h2 className="text-xl lg:text-3xl font-semibold"> Dependencies Overview</h2>
       </SectionHeader>

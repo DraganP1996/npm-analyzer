@@ -9,7 +9,6 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
         requiresCodeOwnerReviews
       }
       target {
-        commitUrl
         ... on Commit {
           history(first: 10) {
             nodes {
@@ -63,9 +62,6 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
       }
     }
     forkCount
-    fundingLinks {
-      url
-    }
     homepageUrl
     isArchived
     isDisabled
@@ -107,14 +103,6 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
     }
     pushedAt
     stargazerCount
-    vulnerabilityAlerts(first: 100) {
-      totalCount
-      nodes {
-        createdAt
-        fixedAt
-        state
-      }
-    }
     watchers {
       totalCount
     }
