@@ -11,7 +11,11 @@ export const Header = () => {
           <Image src="/logo.png" width={200} height={68} alt="Picture of the author" priority />
         </Link>
         <div className="flex flex-row items-center gap-2 text-sm">
-          <Link href="" className="hover:text-blue-400" prefetch={false}>
+          <Link
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/trends`}
+            className="hover:text-blue-400"
+            prefetch={false}
+          >
             Trends
           </Link>
         </div>
