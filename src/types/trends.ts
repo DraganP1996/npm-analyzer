@@ -46,4 +46,11 @@ export type TrendPackage = {
   name: string;
   rank: number;
   stars: number;
+  versions: {
+    number: string;
+    published_at: string;
+    repository_sources: string[];
+    researched_at: string | null;
+    spdx_expression: string;
+  }[];
 };

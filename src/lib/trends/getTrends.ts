@@ -24,6 +24,7 @@ const getTrendsData = async (): Promise<TrendPackage[]> => {
       name: trendPackage.name,
       rank: trendPackage.rank,
       stars: trendPackage.stars,
+      versions: trendPackage.versions,
     }));
   } catch (err) {
     console.error("Error during trends data fetching", err);
