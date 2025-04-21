@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Lato } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import { Header } from "@/components/layout";
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistMono.variable} ${sigmar.variable} antialiased flex-1 flex flex-col`}>
         <div className="flex-1 flex flex-col">
           <Header />
+          <Analytics />
           {children}
         </div>
       </body>
