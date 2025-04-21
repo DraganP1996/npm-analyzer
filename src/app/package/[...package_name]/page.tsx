@@ -3,10 +3,17 @@ import { Suspense } from "react";
 import PackageDashboard, {
   generatePackageDashoardMetadata,
 } from "@/components/package-dashboard/package-dashboard";
-import { PackageVersions } from "@/components/package-versions/package-versions";
-import { PackageVersion } from "@/components/package-version/package-version";
+import {
+  generatePackageVersionsMetadata,
+  PackageVersions,
+} from "@/components/package-versions/package-versions";
+import {
+  generatePackageVersionMetadata,
+  PackageVersion,
+} from "@/components/package-version/package-version";
 import { extractPackageFromUrl } from "@/utils";
 import { DashboardSkeleton } from "@/components/package-dashboard/skeletons/dashboard-skeleton";
+import { PackageVersionSkeleton } from "@/components/package-version";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
@@ -30,7 +37,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   if (!version && versionsPath === "versions") {
-    return "Versions metadata";
+    return generatePackageVersionsMetadata(packageName);
   } else if (!version && versionsPath && versionsPath !== "versions") {
     return undefined;
   } else if (!version && !versionsPath) {
@@ -38,7 +45,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   if (version && !section) {
-    return "Version metadata";
+    return generatePackageVersionMetadata(packageName, version);
   }
 }
 
@@ -72,12 +79,10 @@ export default async function Page({ params }: PageProps) {
   }
 
   if (version && !section) {
-    return <PackageVersion version={version} packageName={packageName} />;
+    return (
+      <Suspense fallback={<PackageVersionSkeleton />}>
+        <PackageVersion version={version} packageName={packageName} />
+      </Suspense>
+    );
   }
-
-  return (
-    <div>
-      Package specific version & section {packageName} version {version} section {section}
-    </div>
-  );
 }

@@ -48,7 +48,7 @@ export function generatePackageDashoardMetadata(packageName: string): Metadata {
       title: title,
       description: description,
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}`,
-      siteName: "JSONs Formatter",
+      siteName: "Npm Check",
       locale: "en",
       type: "article",
       authors: ["Dragan Petrovic"],

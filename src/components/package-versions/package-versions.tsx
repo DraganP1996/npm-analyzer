@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { NpmPackageVersion } from "@/types/package-metadata";
 import { PageContainer } from "../layout/page-container";
 import { DataTable } from "../packages-search-results/data-table";
@@ -13,6 +15,38 @@ import { filterStableVersions } from "@/utils";
 type PackagVersionsProps = {
   packageName: string;
 };
+
+export function generatePackageVersionsMetadata(packageName: string): Metadata {
+  const title = `${packageName} Version History & Stats | Size, Files & Dependencies – npmcheck.com`;
+  const description = `Browse every release of ${packageName} with detailed stats—package size, file count, direct/peer/dev‑dependency counts—for informed upgrade decisions.`;
+
+  return {
+    title,
+    description,
+    authors: [{ name: "Dragan Petrovic", url: "https://github.com/DraganP1996" }],
+    creator: "Dragan Petrovic",
+    publisher: "Dragan Petrovic",
+    alternates: {
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
+    },
+    keywords: `npm package versions, ${packageName} version history, package size stats, file count per version, direct dependencies count, dev dependencies count, version comparison, npmcheck insights, upgrade guidance`,
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
+      siteName: `Npm Check - ${packageName} Versions`,
+      locale: "en",
+      type: "article",
+      authors: ["Dragan Petrovic"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+    },
+    bookmarks: `${process.env.NEXT_PUBLIC_BASE_URL}/package/${packageName}/versions`,
+  };
+}
 
 export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
   const metadata = await getPackage(packageName);
