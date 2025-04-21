@@ -29,9 +29,8 @@ export function VersionsChart<ChartData>({
         <Area
           dataKey={dataKey}
           type="natural"
-          fill="oklch(70.7% 0.165 254.624)"
-          fillOpacity={0.4}
-          stroke="oklch(54.6% 0.245 262.881)"
+          fill="oklch(82.8% 0.111 230.318)"
+          stroke="oklch(68.5% 0.169 237.323)"
         />
       </AreaChart>
     </ChartContainer>

@@ -41,16 +41,16 @@ export const DependenciesOverview = ({
       </div>
       <Alert>
         <Terminal className="h-4 w-4" />
-        <AlertTitle className="text-md">Need a list of transitive dependencies ?</AlertTitle>
+        <AlertTitle className="text-md">Looking for a list of transitive dependencies?</AlertTitle>
         <AlertDescription>
           <p className="text-sm">
-            Check the version specific page in order to see the complete list of transitive
-            dependencies of the lastest version (or any other) version of the package.
+            Head over to the version-specific page to find the full list of transitive dependencies
+            for the latest version or any other version of the package.
           </p>
           <div className="flex items-center justify-end w-full">
             <CardLink href="">
               <span className="flex flex-row text-sm items-center gap-1">
-                All Trasitive Depedencies <ChevronRight width={16} height={16} />{" "}
+                All Trasitive Depedencies <ChevronRight width={16} height={16} />
               </span>
             </CardLink>
           </div>

@@ -43,16 +43,17 @@ export const TrendingItem = ({ pkg, position }: TrendingItemProps) => {
             </div>
             <div
               className="flex flex-row gap-1 items-center text-xs font-semibold"
-              title={`Dependents: ${compactNumberFormatter(pkg.stars)}`}
+              title={`Dependents: ${compactNumberFormatter(pkg.dependents)}`}
             >
               <CableIcon stroke="blue" width={18} height={18} />
               {compactNumberFormatter(pkg.dependents)}
             </div>
             <div
               className="flex flex-row gap-1 items-center text-xs font-semibold"
-              title={`GH Forks: ${compactNumberFormatter(pkg.stars)}`}
+              title={`GH Forks: ${compactNumberFormatter(pkg.forks)}`}
             >
-              <GitFork width={18} height={18} stroke="green" /> {pkg.forks}
+              <GitFork width={18} height={18} stroke="oklch(76.5% 0.177 163.223)" />
+              {compactNumberFormatter(pkg.forks)}
             </div>
           </div>
         </div>

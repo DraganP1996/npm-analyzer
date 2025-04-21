@@ -23,15 +23,14 @@ const DependencyItem = ({ children, href }: { children: ReactNode; href: string 
   );
 };
 
-export const DependenciesCard = ({ title, description, dependencies }: DependencyCardProps) => {
+export const DependenciesCard = ({ title, dependencies }: DependencyCardProps) => {
   const dependencyNames = Object.keys(dependencies || {});
   const hasDependencies = !!dependencyNames.length;
 
   return (
     <ComplexCard
       title={`${title} (${dependencyNames.length})`}
-      description={description}
-      showInfoIcon
+      description={""}
       className="w-full flex"
       contentClassName="min-h-[200px] max-h-[260px] overflow-auto"
     >

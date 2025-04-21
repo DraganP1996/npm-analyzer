@@ -82,7 +82,7 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
           <TopContributorsChart history={commitsHistory} />
         </ComplexCard>
       </div>
-      <div className="grid gird-cols-1 lg:grid-cols-[3fr_1.5fr_2.5fr] gap-2">
+      <div className="grid gird-cols-1 lg:grid-cols-[3fr_2.5fr] gap-2">
         <ComplexCard
           title={`Open PRs (${pullRequests.totalCount})`}
           description="Currently active PR in the repository"
@@ -102,14 +102,6 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
                 date={pr.createdAt}
               />
             ))}
-        </ComplexCard>
-        <ComplexCard
-          title="PR Closing Timeline"
-          description="The average time for closing PRs in the repo"
-          showInfoIcon
-          contentClassName="min-h-[200px] max-h-[250px] overflow-auto"
-        >
-          Maybe the 5 most popular committers ?
         </ComplexCard>
         <ComplexCard
           title={`Open Issues (${repository.issues.totalCount})`}

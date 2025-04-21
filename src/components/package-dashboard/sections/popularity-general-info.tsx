@@ -12,17 +12,17 @@ export const PopularityGeneralInfo = ({ stars, forks, watchers }: PopularityGene
     <div className="flex flex-row gap-2">
       <SimpleCard title="GH Stars">
         <div className="flex flex-row items-center justify-center gap-1">
-          <StarIcon /> {stars}
+          <StarIcon fill="oklch(90.5% 0.182 98.111)" stroke="oklch(90.5% 0.182 98.111)" /> {stars}
         </div>
       </SimpleCard>
       <SimpleCard title="GH Forks">
         <div className="flex flex-row items-center justify-center gap-1">
-          <GitFork /> {forks}
+          <GitFork stroke="oklch(76.5% 0.177 163.223)" /> {forks}
         </div>
       </SimpleCard>
       <SimpleCard title="GH Watchers">
         <div className="flex flex-row items-center justify-center gap-1">
-          <EyeIcon /> {watchers}
+          <EyeIcon stroke="oklch(66.6% 0.179 58.318)" /> {watchers}
         </div>
       </SimpleCard>
     </div>

@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { TechArticle, WithContext } from "schema-dts";
 
 import { PageContainer } from "@/components/layout";
-import { TrendingList } from "@/components/trends";
+import { TrendingList, TrendingListSkeleton } from "@/components/trends";
 import { BreadCrumbNavigation } from "@/components/ui/breadcrumb-navigation";
 
 export const metadata: Metadata = {
@@ -102,7 +102,7 @@ export default async function Page() {
             A complete list with the 100 currently most popular packages
           </p>
         </div>
-        <Suspense fallback={<p> Loading... </p>}>
+        <Suspense fallback={<TrendingListSkeleton />}>
           <TrendingList />
         </Suspense>
       </div>

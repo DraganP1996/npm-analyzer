@@ -22,7 +22,7 @@ export const ReleaseFrequencyChart = ({ config, monthReleases }: ReleaseFrequenc
         <CartesianGrid vertical={false} />
         <XAxis dataKey="month" tickLine={false} tickMargin={5} axisLine={false} />
         <ChartTooltip content={<ChartTooltipContent />} />
-        <Bar dataKey="total" radius={4} />
+        <Bar dataKey="total" radius={4} fill="oklch(50% 0.134 242.749)" />
       </BarChart>
     </ChartContainer>
   );

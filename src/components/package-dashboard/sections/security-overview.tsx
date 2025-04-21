@@ -23,9 +23,9 @@ export const SecurityOverview = async ({
   stableVersion,
 }: SecurityOverviewProps) => {
   const chartConfig = {
-    total: {
-      label: "Number of releases ",
-      color: "#2563eb",
+    count: {
+      label: "N. of Vulnerabilities",
+      color: "red",
     },
   } satisfies ChartConfig;
   const versionList = Object.keys(versions).map((versionNum: string) => versions[versionNum]);

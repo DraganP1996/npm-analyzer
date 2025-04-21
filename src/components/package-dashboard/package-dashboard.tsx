@@ -2,6 +2,7 @@ import { formatDistance, subDays } from "date-fns";
 import { Metadata } from "next";
 import { TechArticle, WithContext } from "schema-dts";
 import Script from "next/script";
+import { Suspense } from "react";
 
 import {
   compactNumberFormatter,
@@ -22,7 +23,6 @@ import {
 } from "./sections";
 import { filterStableVersions } from "@/utils/filterStableVersions";
 import { PopularityOverview } from "./sections/popularity-overview";
-import { Suspense } from "react";
 import { SecurityOverviewSkeleton } from "./skeletons/security-overview-skeleton";
 import { PopularityOverviewSkeleton } from "./skeletons/popularity-overview-skeleton";
 

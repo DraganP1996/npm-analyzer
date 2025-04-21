@@ -52,7 +52,7 @@ export const ListItemWithDateAuthor = ({
             <Avatar>
               <AvatarImage src={avatarUrl} />
             </Avatar>
-            <span> {authorName} </span>
+            <span className="text-xs"> {authorName} </span>
           </Link>
         )}
         <div className="">{formattedDate}</div>

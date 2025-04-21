@@ -46,7 +46,12 @@ export const PopularityChart = ({ config, data }: PopularityChartProps) => {
 
         <XAxis dataKey="month" tickLine={false} axisLine={false} />
         <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
-        <Area dataKey="downloads" type="natural" fill="black" fillOpacity={0.4} stroke="black" />
+        <Area
+          dataKey="downloads"
+          type="natural"
+          fill="oklch(82.8% 0.111 230.318)"
+          stroke="oklch(68.5% 0.169 237.323)"
+        />
       </AreaChart>
     </ChartContainer>
   );

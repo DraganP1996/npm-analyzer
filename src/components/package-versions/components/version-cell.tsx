@@ -106,7 +106,7 @@ export const DifferenceSpan = ({
         <span
           className={cn(
             percentageDiff > 0 ? positiveDiffClassName : negativeDiffClassName,
-            "flex: lg:hidden flex-row items-center gap-1 text-[8px] lg:text-[10px] font-semibold"
+            "flex lg:hidden flex-row items-center gap-1 text-[8px] lg:text-[10px] font-semibold"
           )}
         >
           {percentageDiff > 0 && <TrendingUp width={8} height={8} />}

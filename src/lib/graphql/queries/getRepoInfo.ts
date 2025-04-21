@@ -85,7 +85,7 @@ export const getRepoInfoQuery = `query ($owner: String!, $name: String!) {
         }
       }
     }
-    pullRequests(last: 10, states: OPEN) {
+    pullRequests(last: 10, states: OPEN orderBy: {field:CREATED_AT direction:DESC}) {
       totalCount
       nodes {
         id
