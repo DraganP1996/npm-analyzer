@@ -100,7 +100,7 @@ const jsonLd: WithContext<TechArticle> = {
   },
 };
 
-export const revalidate = 86400;
+export const revalidate = 432_000;
 
 export default function HomePage() {
   return (

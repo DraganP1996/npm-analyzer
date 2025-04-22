@@ -17,7 +17,7 @@ import { PackageVersionSkeleton } from "@/components/package-version";
 
 type PageProps = { params: Promise<{ package_name: string[] }> };
 
-export const revalidate = 86400;
+export const revalidate = 432_000;
 
 export async function generateMetadata({ params }: PageProps) {
   const { package_name } = await params;
