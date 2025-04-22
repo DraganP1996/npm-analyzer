@@ -1,5 +1,3 @@
-export const revalidate = 86400;
-
 import { Metadata } from "next";
 import Script from "next/script";
 import { TechArticle, WithContext } from "schema-dts";
@@ -101,6 +99,8 @@ const jsonLd: WithContext<TechArticle> = {
     },
   },
 };
+
+export const revalidate = 86400;
 
 export default function HomePage() {
   return (

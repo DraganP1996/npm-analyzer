@@ -74,6 +74,8 @@ const jsonLd: WithContext<TechArticle> = {
   },
 };
 
+export const revalidate = 86400;
+
 export default async function Page() {
   const breadcrumbNavigationItems = [
     {
