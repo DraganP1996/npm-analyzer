@@ -1,9 +1,9 @@
-import { getTrends } from "@/lib/trends";
+import { getTrends1000 } from "@/lib/trends/getTop1000Trends";
 import { filterStableVersions } from "@/utils";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const trendingPackages = await getTrends();
+  const trendingPackages = await getTrends1000();
 
   const urls = [
     {
