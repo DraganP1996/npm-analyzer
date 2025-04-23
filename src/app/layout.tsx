@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 import { Header } from "@/components/layout";
+import { Footer } from "@/components/layout/footer";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
           <Analytics />
           {children}
+          <Footer />
         </div>
       </body>
     </html>
