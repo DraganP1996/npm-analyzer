@@ -3,8 +3,8 @@ import { PageContainer } from "./page-container";
 
 export const Footer = () => {
   return (
-    <div className="w-full flex flex-col  text-white text-xs">
-      <div className="bg-sky-100 font-semibold">
+    <div className="w-full flex flex-col text-white text-xs">
+      <div className="bg-sky-50 font-semibold">
         <PageContainer className="p-2 flex flex-row items-center justify-center text-black">
           Thanks
           <Link href="https://upstash.com/" target="_blank">
