@@ -1,11 +1,15 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, userAgent } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const userAgent = request.headers.get("user-agent") || "unknown";
-  const path = request.nextUrl.pathname;
+  const { ua, isBot } = userAgent(request);
 
-  if (/bot|crawl|spider|slurp|fetch|wget|curl|python/i.test(userAgent)) {
-    console.log(`[CRAWLER] ${userAgent} => ${path}`);
+  console.log("Ua", ua);
+  console.log("isBot", isBot);
+
+  const isSuspiciousBot = /curl|node-fetch|python|axios|scrapy|go-http-client/i.test(ua);
+
+  if (isBot && isSuspiciousBot) {
+    return new NextResponse("Blocked scraper", { status: 403 });
   }
 
   return NextResponse.next();
