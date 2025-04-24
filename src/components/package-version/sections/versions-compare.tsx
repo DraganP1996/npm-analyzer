@@ -18,6 +18,7 @@ export const VersionsCompare = ({ currVersion, versions }: VersionsCompareProps)
   const currVersionIndex = versionsList.findIndex((v) => v === currVersion);
   const [currVersionMetadata, setCurrVersionMetada] = useState(versions[currVersion]);
   const [prevVersion, setPrevVersion] = useState(versions[versionsList[currVersionIndex + 1]]);
+  const isTheFirstVersion = currVersion === versions[versionsList[versionsList.length - 1]].version;
 
   const handleCurrentVersionChange = useCallback(
     (value: string) => {
@@ -42,68 +43,72 @@ export const VersionsCompare = ({ currVersion, versions }: VersionsCompareProps)
   );
 
   return (
-    <ComplexCard
-      title={
-        currVersion && prevVersion
-          ? `Comparision Betweeen ${currVersion} and ${prevVersion.version}`
-          : "Comparision With Previous Version"
-      }
-      description="Identify the differences between the current version of the package and the previous one."
-    >
-      <div className="">
-        <div className="grid bg-gray-50 p-1 lg:p-2 rounded-xl border text-xs lg:text-sm">
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Version </div>
-            <VersionsDropdown
-              defaultVersion={currVersion}
-              versions={versionsList}
-              onValueChange={handleCurrentVersionChange}
-            />
-            <VersionsDropdown
-              defaultVersion={prevVersion.version}
-              versions={versionsList}
-              onValueChange={handlePrevVersionChange}
-            />
-          </div>
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Dependencies </div>
-            <div className="p-2">{Object.keys(currVersionMetadata.dependencies || {}).length}</div>
-            <div className="p-2">{Object.keys(prevVersion.dependencies || {}).length}</div>
-          </div>
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Dev Dependencies </div>
-            <div className="p-2">
-              {Object.keys(currVersionMetadata.devDependencies || {}).length}
+    !isTheFirstVersion && (
+      <ComplexCard
+        title={
+          currVersion && prevVersion && prevVersion?.version
+            ? `Comparision Betweeen ${currVersion} and ${prevVersion.version}`
+            : "Comparision With Previous Version"
+        }
+        description="Identify the differences between the current version of the package and the previous one."
+      >
+        <div className="">
+          <div className="grid bg-gray-50 p-1 lg:p-2 rounded-xl border text-xs lg:text-sm">
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Version </div>
+              <VersionsDropdown
+                defaultVersion={currVersion}
+                versions={versionsList}
+                onValueChange={handleCurrentVersionChange}
+              />
+              <VersionsDropdown
+                defaultVersion={prevVersion.version}
+                versions={versionsList}
+                onValueChange={handlePrevVersionChange}
+              />
             </div>
-            <div className="p-2">{Object.keys(prevVersion.peerDependencies || {}).length}</div>
-          </div>
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Peer Dependencies </div>
-            <div className="p-2">
-              {Object.keys(currVersionMetadata.devDependencies || {}).length}
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Dependencies </div>
+              <div className="p-2">
+                {Object.keys(currVersionMetadata.dependencies || {}).length}
+              </div>
+              <div className="p-2">{Object.keys(prevVersion.dependencies || {}).length}</div>
             </div>
-            <div className="p-2">{Object.keys(prevVersion.peerDependencies || {}).length}</div>
-          </div>
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Distributed Files </div>
-            <div className="p-2">{currVersionMetadata.dist.fileCount || "N/A"}</div>
-            <div className="p-2">{prevVersion.dist.fileCount || "N/A"}</div>
-          </div>
-          <div className="grid grid-cols-3">
-            <div className="p-2 font-semibold"> Unpacked Size </div>
-            <div className="p-2">
-              {currVersionMetadata.dist.unpackedSize !== undefined
-                ? formatBytes(currVersionMetadata.dist.unpackedSize)
-                : "N/A"}
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Dev Dependencies </div>
+              <div className="p-2">
+                {Object.keys(currVersionMetadata.devDependencies || {}).length}
+              </div>
+              <div className="p-2">{Object.keys(prevVersion.peerDependencies || {}).length}</div>
             </div>
-            <div className="p-2">
-              {prevVersion.dist.unpackedSize !== undefined
-                ? formatBytes(prevVersion.dist.unpackedSize)
-                : "N/A"}
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Peer Dependencies </div>
+              <div className="p-2">
+                {Object.keys(currVersionMetadata.devDependencies || {}).length}
+              </div>
+              <div className="p-2">{Object.keys(prevVersion.peerDependencies || {}).length}</div>
+            </div>
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Distributed Files </div>
+              <div className="p-2">{currVersionMetadata.dist.fileCount || "N/A"}</div>
+              <div className="p-2">{prevVersion.dist.fileCount || "N/A"}</div>
+            </div>
+            <div className="grid grid-cols-3">
+              <div className="p-2 font-semibold"> Unpacked Size </div>
+              <div className="p-2">
+                {currVersionMetadata.dist.unpackedSize !== undefined
+                  ? formatBytes(currVersionMetadata.dist.unpackedSize)
+                  : "N/A"}
+              </div>
+              <div className="p-2">
+                {prevVersion.dist.unpackedSize !== undefined
+                  ? formatBytes(prevVersion.dist.unpackedSize)
+                  : "N/A"}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </ComplexCard>
+      </ComplexCard>
+    )
   );
 };
