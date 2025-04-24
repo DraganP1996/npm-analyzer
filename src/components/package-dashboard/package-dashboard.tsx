@@ -78,6 +78,9 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
     stableVersions,
   } = metadata;
 
+  // TODO: This is a quick fix, change in order to avoid 404 but display data related to a version that is not stable
+  if (Object.keys(stableVersions).length === 0) return notFound();
+
   const parsedDescription = await parsePackageDescription(description || "");
 
   const { dist, repository, version, dependencies, devDependencies, peerDependencies } =
