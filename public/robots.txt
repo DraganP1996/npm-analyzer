@@ -3,7 +3,7 @@ Disallow: /_next/           # Block Next.js build assets
 Disallow: /static/          # Block static assets (if any)
 Disallow: /favicon.ico      # Not useful for indexing
 Disallow: /fonts/           # Block font files if hosted locally
-Crawl-delay: 5              # Ask bots to wait between requests (not all respect this)
+Crawl-delay: 5
 
 User-agent: AhrefsBot
 User-agent: SemrushBot
@@ -11,11 +11,10 @@ User-agent: DotBot
 User-agent: MJ12bot
 User-agent: PetalBot
 User-agent: CCBot
-User-agent: GPTBot
 User-agent: Bytespider
 Disallow: /                 # Completely block aggressive or AI-related bots
 
 User-agent: Yandex
-Crawl-delay: 10             # Slow down Yandex specifically
+Crawl-delay: 5             # Slow down Yandex specifically
 
 Sitemap: https://www.npmcheck.com/sitemap.xml
