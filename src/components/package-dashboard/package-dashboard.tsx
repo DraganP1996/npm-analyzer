@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { TechArticle, WithContext } from "schema-dts";
 import Script from "next/script";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 import {
   compactNumberFormatter,
@@ -13,7 +14,6 @@ import {
 } from "@/utils";
 import { getRepoInfoQuery, getGithub, getPackage } from "@/lib";
 import { PageContainer } from "../layout/page-container";
-
 import {
   PackageGeneralInfo,
   DependenciesOverview,
@@ -64,6 +64,10 @@ export function generatePackageDashoardMetadata(packageName: string): Metadata {
 
 export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
   const metadata = await getPackage(packageName);
+
+  if (!metadata) {
+    return notFound();
+  }
 
   const {
     latestVersion,
