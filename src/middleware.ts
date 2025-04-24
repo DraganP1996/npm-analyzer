@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
   const isSuspiciousBot = /curl|node-fetch|python|axios|scrapy|go-http-client/i.test(ua);
 
-  if (isBot && isSuspiciousBot) {
+  if (isSuspiciousBot) {
     return new NextResponse("Blocked scraper", { status: 403 });
   }
 
