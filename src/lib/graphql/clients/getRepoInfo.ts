@@ -25,7 +25,7 @@ async function getGithubInfo(
   });
 
   if (!res.ok) {
-    console.error("GitHub API error", await res.text());
+    console.log("GitHub API error", await res.text());
 
     return undefined;
   }
@@ -33,12 +33,10 @@ async function getGithubInfo(
   const json: GraphQLGithubResponse = await res.json();
 
   if (json.errors) {
-    console.error("GraphQL errors", json.errors);
+    console.log("GraphQL errors", json.errors);
 
     return undefined;
   }
-
-  console.log("CHECK RESPONSE", json);
 
   console.log("Rate limit", json.data.rateLimit);
 

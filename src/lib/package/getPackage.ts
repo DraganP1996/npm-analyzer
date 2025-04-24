@@ -16,7 +16,7 @@ const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata
     });
 
     if (!packageResponse.ok) {
-      console.error("Error when retrieving the package data");
+      console.log("Error when retrieving the package data");
       return undefined;
     }
 
