@@ -6,7 +6,7 @@ const ratelimit =
   process.env.USE_REDIS === "true"
     ? new Ratelimit({
         redis: redis!,
-        limiter: Ratelimit.slidingWindow(6, "10 s"),
+        limiter: Ratelimit.slidingWindow(12, "10 s"),
       })
     : null;
 
