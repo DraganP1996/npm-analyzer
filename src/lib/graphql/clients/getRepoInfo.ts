@@ -6,7 +6,7 @@ async function getGithubInfo(
   query: string,
   owner: string,
   repo: string
-): Promise<GraphQLGithubRepository> {
+): Promise<GraphQLGithubRepository | undefined> {
   const res = await fetch(`${process.env.GITHUB_BASE_URL}`, {
     method: "POST",
     headers: {
@@ -26,14 +26,16 @@ async function getGithubInfo(
 
   if (!res.ok) {
     console.error("GitHub API error", await res.text());
-    throw new Error("GitHub API error");
+
+    return undefined;
   }
 
   const json: GraphQLGithubResponse = await res.json();
 
   if (json.errors) {
     console.error("GraphQL errors", json.errors);
-    throw new Error("GraphQL error");
+
+    return undefined;
   }
 
   console.log("CHECK RESPONSE", json);
@@ -44,7 +46,7 @@ async function getGithubInfo(
 }
 
 export const getGithub = async (packageName: string, query: string, owner: string, repo: string) =>
-  await getOrSet<GraphQLGithubRepository>(
+  await getOrSet<GraphQLGithubRepository | undefined>(
     `${CACHE_TAGS.github}:${packageName}`,
     2 * 24 * 60 * 60,
     () => getGithubInfo(query, owner, repo)
