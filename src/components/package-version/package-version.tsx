@@ -54,6 +54,9 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
   if (!metadata) return notFound();
 
   const versionMetadata = metadata.stableVersions[version];
+
+  if (!versionMetadata) return notFound();
+
   const breadcrumbNavigationItems = [
     {
       title: packageName,
