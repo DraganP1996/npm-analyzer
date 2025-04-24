@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 import { PageContainer } from "../layout/page-container";
 import { BreadCrumbNavigation } from "../ui/breadcrumb-navigation";
@@ -49,6 +50,9 @@ export function generatePackageVersionMetadata(packageName: string, version: str
 
 export const PackageVersion = async ({ version, packageName }: PackageVersionSpecificPageProps) => {
   const metadata = await getPackage(packageName);
+
+  if (!metadata) return notFound();
+
   const versionMetadata = metadata.stableVersions[version];
   const breadcrumbNavigationItems = [
     {

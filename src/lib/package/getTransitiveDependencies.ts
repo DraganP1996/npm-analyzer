@@ -19,6 +19,9 @@ export const getTransitiveDependenies = async (
 
       const promise = (async () => {
         const response = await getPackage(depName);
+
+        if (!response) return [];
+
         const availableVersions = Object.keys(response.stableVersions);
         const resolvedVersion = semver.maxSatisfying(availableVersions, depRange);
 

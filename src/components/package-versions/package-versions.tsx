@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { NpmPackageVersion } from "@/types/package-metadata";
 import { PageContainer } from "../layout/page-container";
@@ -50,6 +51,9 @@ export function generatePackageVersionsMetadata(packageName: string): Metadata {
 
 export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
   const metadata = await getPackage(packageName);
+
+  if (!metadata) return notFound();
+
   const tableData: NpmPackageVersion[] = [];
   const breadcrumbNavigationItems = [
     {
