@@ -22,7 +22,9 @@ export const ComplexCard = ({
   return (
     <Card className={className}>
       <CardHeader className="gap-1">
-        <CardTitle>{title}</CardTitle>
+        <CardTitle>
+          <h3>{title} </h3>
+        </CardTitle>
         <CardDescription className="leading-4"> {description} </CardDescription>
         {showInfoIcon && (
           <CardAction>

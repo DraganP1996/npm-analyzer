@@ -91,7 +91,7 @@ export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
     <PageContainer className="pb-4">
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
       <div className="flex flex-row gap-1 items-center">
-        <h1 className="font-bold text-3xl"> Versions</h1>
+        <h1 className="font-bold text-3xl"> Version History </h1>
         <span className="text-3xl font-semibold">({orderedVersionNumbers.length}) </span>
       </div>
 

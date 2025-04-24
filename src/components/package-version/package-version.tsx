@@ -78,7 +78,9 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
     <PageContainer className="pb-2">
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
 
-      <h1 className="font-bold text-2xl lg:text-3xl">Version Details</h1>
+      <h1 className="font-bold text-2xl lg:text-3xl">
+        Version Details and Security Vulnerabilities
+      </h1>
 
       <div className="flex flex-row items-center justify-between ">
         <div className="flex flex-row items-center text-lg lg:text-xl font-semibold gap-1">

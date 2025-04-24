@@ -43,7 +43,11 @@ export const VersionsCompare = ({ currVersion, versions }: VersionsCompareProps)
 
   return (
     <ComplexCard
-      title="Comparision With Previous Version"
+      title={
+        currVersion && prevVersion
+          ? `Comparision Betweeen ${currVersion} and ${prevVersion.version}`
+          : "Comparision With Previous Version"
+      }
       description="Identify the differences between the current version of the package and the previous one."
     >
       <div className="">
