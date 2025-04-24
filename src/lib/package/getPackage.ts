@@ -63,7 +63,7 @@ const getPackageData = async (packageName: string): Promise<NpmFormattedMetadata
       latestVersion: packageData["dist-tags"].latest,
       repositoryUrl: versions[packageData["dist-tags"].latest].repository?.url || repository?.url,
       stableVersions: definedVersions,
-      license: license || "N/A",
+      license: typeof license === "string" ? license : license?.type || "N/A",
       author,
       description,
     };

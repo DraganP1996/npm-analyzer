@@ -28,7 +28,12 @@ export interface NpmPackageMetadata {
   };
   readme?: string;
   readmeFilename?: string;
-  license?: string;
+  license?:
+    | string
+    | {
+        url: string;
+        type: string;
+      };
   keywords?: string[];
   homepage?: string;
   bugs?: {
