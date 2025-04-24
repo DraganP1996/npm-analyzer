@@ -25,7 +25,7 @@ export const getVlnsDetailsFromIds = async (
       return {
         packageName: pkgVln.packageName,
         version: pkgVln.version,
-        vlns,
+        vlns: vlns.filter((vln) => vln !== undefined),
       };
     })
   );

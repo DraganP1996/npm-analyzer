@@ -35,7 +35,7 @@ export const SecurityOverview = async ({
   );
 
   const versionsVlnCounter = versionList.map((vl) => {
-    const count = vlns.filter((vln) => vln.version === vl.version).length;
+    const count = vlns?.filter((vln) => vln.version === vl.version).length || 0;
 
     return {
       version: vl.version,

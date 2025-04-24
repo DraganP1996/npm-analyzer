@@ -13,7 +13,7 @@ export async function getOrSet<T>(
   key: string,
   ttlSeconds: number,
   fallback: () => Promise<T>
-): Promise<T> {
+): Promise<T | undefined> {
   if (redis) {
     const cached = await redis.get(key);
 
@@ -25,6 +25,9 @@ export async function getOrSet<T>(
     console.log(`❌ Redis MISS: ${key}`);
 
     const value = await fallback();
+
+    if (value === undefined || !value) return undefined;
+
     await redis.set(key, JSON.stringify(value), { ex: ttlSeconds });
     return value;
   }

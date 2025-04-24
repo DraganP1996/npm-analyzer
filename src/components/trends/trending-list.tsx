@@ -7,9 +7,10 @@ export const TrendingList = async () => {
 
   return (
     <div className="flex flex-col gap-2">
-      {trends.map((pkg: TrendPackage, index: number) => (
-        <TrendingItem key={pkg.name} pkg={pkg} position={index + 1} />
-      ))}
+      {trends &&
+        trends.map((pkg: TrendPackage, index: number) => (
+          <TrendingItem key={pkg.name} pkg={pkg} position={index + 1} />
+        ))}
     </div>
   );
 };

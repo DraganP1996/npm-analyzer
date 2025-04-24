@@ -30,7 +30,7 @@ export const PopularityOverview = async ({
         <h2 className="text-3xl font-semibold"> Popularity Overview</h2>
       </SectionHeader>
       <PopularityGeneralInfo stars={stars} watchers={watchers} forks={forks} />
-      <PopularityCard config={chartConfig} packageName={packageName} data={downloadData} />
+      <PopularityCard config={chartConfig} packageName={packageName} data={downloadData || []} />
     </div>
   );
 };
