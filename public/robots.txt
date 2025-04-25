@@ -17,4 +17,7 @@ Disallow: /                 # Completely block aggressive or AI-related bots
 User-agent: Yandex
 Crawl-delay: 5             # Slow down Yandex specifically
 
+User-agent: GPTBot
+Disallow: /
+
 Sitemap: https://www.npmcheck.com/sitemap.xml
