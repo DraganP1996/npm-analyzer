@@ -30,10 +30,16 @@ export async function middleware(request: NextRequest) {
   console.log("isBot", isBot);
 
   const isSuspiciousBot = /curl|node-fetch|python|axios|scrapy|go-http-client/i.test(ua);
+  const allowlistedBots = ["Googlebot", "Bingbot", "Slurp", "DuckDuckBot", "YandexBot", "Applebot"];
 
   if (isSuspiciousBot) {
     console.log("Scraper found !!!!");
     return new NextResponse("Blocked scraper", { status: 403 });
+  }
+
+  if (isBot && allowlistedBots.some((bot) => ua?.includes(bot))) {
+    console.log("Allowing good bot without rate limiting");
+    return NextResponse.next();
   }
 
   const forwardedFor =
