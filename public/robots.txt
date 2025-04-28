@@ -18,6 +18,7 @@ User-agent: Yandex
 Crawl-delay: 5             # Slow down Yandex specifically
 
 User-agent: GPTBot
+User-agent: Amazonbot
 Disallow: /
 
 Sitemap: https://www.npmcheck.com/sitemap.xml
