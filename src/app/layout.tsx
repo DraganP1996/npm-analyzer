@@ -27,8 +27,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const config = {
+  //   apiUrl: "http://localhost:3001",
+  //   siteId: "your-site-id",
+  //   debug: true,
+  // };
   return (
     <html lang="en" className="flex h-full">
+      <head>
+        {/* <script
+          dangerouslySetInnerHTML={{
+            __html: `window.trakomiConfig = ${JSON.stringify(config)};`,
+          }}
+        />
+        <script src="/trakomi-tracker.umd.js" async></script> */}
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="5894ce05-d989-454f-bbbb-aba23e034328"
+        ></script>
+      </head>
       <body className={`${geistMono.variable} ${sigmar.variable} antialiased flex-1 flex flex-col`}>
         <div className="flex-1 flex flex-col">
           <Header />
