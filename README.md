@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+#### .env.local
+
+GITHUB_TOKEN=XXX // FInd github API token
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+UPSTASH_REDIS_REST_URL=https://immune-pony-23530.upstash.io
+UPSTASH_REDIS_REST_TOKEN=XXX
+USE_REDIS=false
+NPM_BASE_URL=https://registry.npmjs.org
+NPM_DOWNLOAD_URL=https://api.npmjs.org
+NPM_POPULAR_URL=https://api.npms.io/v2
+GITHUB_BASE_URL=https://api.github.com/graphql
+OVS_BASE_URL=https://api.osv.dev/v1
+LIBRARIES_IO_TOKEN=XXX // Find libraries.io api token
+LIBRARIES_IO_BASE_URL=https://libraries.io/api/search
+OPENAI_TOKEN=XXX // ne treba ti ovo
