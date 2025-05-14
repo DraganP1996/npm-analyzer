@@ -4,7 +4,7 @@ import { filterStableVersions } from "@/utils";
 
 const getTrendsData = async (): Promise<TrendPackage[]> => {
   try {
-    const url = `${process.env.LIBRARIES_IO_BASE_URL}?platforms=npm&sort=rank&per_page=100&page=1&api_key=${process.env.LIBRARIES_IO_TOKEN}`;
+    const url = `${process.env.LIBRARIES_IO_BASE_URL}?platforms=npm&sort=rank&per_page=50&page=1&api_key=${process.env.LIBRARIES_IO_TOKEN}`;
     const trendsRes = await fetch(url);
 
     if (!trendsRes.ok) {
