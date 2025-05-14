@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest) {
     url.startsWith("/_next") ||
     url.startsWith("/favicon.ico") ||
     url.startsWith("/robots.txt") ||
+    url.startsWith("/sitemap.xml") ||
     !RATE_LIMIT_PATHS.some((pattern) => pattern.test(url))
   ) {
     return NextResponse.next();
@@ -30,14 +31,13 @@ export async function middleware(request: NextRequest) {
   console.log("isBot", isBot);
 
   const isSuspiciousBot = /curl|node-fetch|python|axios|scrapy|go-http-client/i.test(ua);
-  const allowlistedBots = ["Googlebot", "Bingbot", "Slurp", "DuckDuckBot", "YandexBot", "Applebot"];
 
   if (isSuspiciousBot) {
     console.log("Scraper found !!!!");
     return new NextResponse("Blocked scraper", { status: 403 });
   }
 
-  if (isBot && allowlistedBots.some((bot) => ua?.includes(bot))) {
+  if (isBot) {
     console.log("Allowing good bot without rate limiting");
     return NextResponse.next();
   }
