@@ -53,6 +53,19 @@ export function generatePackageDashoardMetadata(packageName: string): Metadata {
       type: "article",
       authors: ["Dragan Petrovic"],
     },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     twitter: {
       card: "summary_large_image",
       title: title,
@@ -64,6 +77,8 @@ export function generatePackageDashoardMetadata(packageName: string): Metadata {
 
 export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
   const metadata = await getPackage(packageName);
+
+  console.log("Check the package metadata", metadata);
 
   if (!metadata) {
     return notFound();

@@ -1,8 +1,8 @@
-import { ChevronRight, Terminal } from "lucide-react";
+// import { ChevronRight, Terminal } from "lucide-react";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { DependenciesCard, SectionHeader } from "../components";
-import { CardLink } from "@/components/ui/card-link";
+// import { CardLink } from "@/components/ui/card-link";
 
 type DependenciesOverviewProps = {
   packageName: string;
@@ -39,7 +39,7 @@ export const DependenciesOverview = ({
           dependencies={devDeps}
         />
       </div>
-      <Alert>
+      {/* <Alert>
         <Terminal className="h-4 w-4" />
         <AlertTitle className="text-md">Looking for a list of transitive dependencies?</AlertTitle>
         <AlertDescription>
@@ -55,7 +55,7 @@ export const DependenciesOverview = ({
             </CardLink>
           </div>
         </AlertDescription>
-      </Alert>
+      </Alert> */}
     </div>
   );
 };

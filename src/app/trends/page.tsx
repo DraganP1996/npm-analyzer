@@ -101,7 +101,7 @@ export default async function Page() {
         <div className="flex flex-col">
           <h1 className="font-bold text-3xl">Most Popular Packages </h1>
           <p className="text-gray-500 text-sm">
-            A complete list with the 100 currently most popular packages
+            A complete list with the 50 currently most popular packages
           </p>
         </div>
         <Suspense fallback={<TrendingListSkeleton />}>
