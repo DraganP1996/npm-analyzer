@@ -35,6 +35,7 @@ export default function RootLayout({
           src="https://cloud.umami.is/script.js"
           data-website-id="5894ce05-d989-454f-bbbb-aba23e034328"
         ></script>
+        <meta name="google-adsense-account" content="ca-pub-7098826907138268" />
       </head>
       <body className={`${geistMono.variable} ${sigmar.variable} antialiased flex-1 flex flex-col`}>
         <div className="flex-1 flex flex-col">
