@@ -8,9 +8,9 @@ import { TrendingList, TrendingListSkeleton } from "@/components/trends";
 import { BreadCrumbNavigation } from "@/components/ui/breadcrumb-navigation";
 
 export const metadata: Metadata = {
-  title: "Top 100 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
+  title: "Top 50 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
   description:
-    "Discover the 100 most popular npm packages ranked by dependents and downloads. Explore trends in size, security, and usage over time with npmcheck.",
+    "Discover the 50 most popular npm packages ranked by dependents and downloads. Explore trends in size, security, and usage over time with npmcheck.",
   keywords:
     "npm trending packages, popular npm packages, top npm libraries, most downloaded npm packages, npm package popularity, npm downloads, npmcheck trends",
   alternates: {
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Top 100 Trending npm Packages — Size, Popularity & Downloads | NpmCheck`,
+    title: `Top 50 Trending npm Packages — Size, Popularity & Downloads | NpmCheck`,
     description:
-      "Discover the 100 most popular npm packages ranked by dependents and downloads. Explore trends in size, security, and usage over time with npmcheck.",
+      "Discover the 50 most popular npm packages ranked by dependents and downloads. Explore trends in size, security, and usage over time with npmcheck.",
   },
   bookmarks: `${process.env.NEXT_PUBLIC_BASE_URL}/trends`,
   category: "Technology",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 const jsonLd: WithContext<TechArticle> = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  headline: "Top 100 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
+  headline: "Top 50 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id": `https://jsonsformatter.com`,
@@ -61,7 +61,7 @@ const jsonLd: WithContext<TechArticle> = {
     "npm trending packages, popular npm packages, top npm libraries, most downloaded npm packages, npm package popularity, npm downloads, npmcheck trends",
   about: {
     "@type": "WebApplication",
-    name: "Top 100 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
+    name: "Top 50 Trending npm Packages — Size, Popularity & Downloads | NpmCheck",
     url: `${process.env.NEXT_PUBLIC_BASE_URL}/trends`,
     browserRequirements: "Requires modern browsers (Chrome, Firefox, Safari)",
     applicationCategory: "Utilities",

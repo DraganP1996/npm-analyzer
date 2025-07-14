@@ -1,7 +1,7 @@
 "use client";
 
 import { NpmPackageVersion } from "@/types";
-import { filterStableVersions, formatBytes } from "@/utils";
+import { filterStableVersions, findPreviousVersions, formatBytes } from "@/utils";
 import { VersionsDropdown } from "../components";
 import { ComplexCard } from "@/components/ui/complex-card";
 import { useCallback, useState } from "react";
@@ -15,9 +15,8 @@ export const VersionsCompare = ({ currVersion, versions }: VersionsCompareProps)
   const versionsList = filterStableVersions(
     Object.keys(versions).map((version) => versions[version].version)
   );
-  const currVersionIndex = versionsList.findIndex((v) => v === currVersion);
   const [currVersionMetadata, setCurrVersionMetada] = useState(versions[currVersion]);
-  const [prevVersion, setPrevVersion] = useState(versions[versionsList[currVersionIndex + 1]]);
+  const [prevVersion, setPrevVersion] = useState(findPreviousVersions(currVersion, versions));
   const isTheFirstVersion = currVersion === versions[versionsList[versionsList.length - 1]].version;
 
   const handleCurrentVersionChange = useCallback(

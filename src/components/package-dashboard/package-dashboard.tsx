@@ -20,6 +20,7 @@ import {
   VersionsOverview,
   RepositoryOverview,
   SecurityOverview,
+  PackageSummary,
 } from "./sections";
 import { filterStableVersions } from "@/utils/filterStableVersions";
 import { PopularityOverview } from "./sections/popularity-overview";
@@ -77,8 +78,6 @@ export function generatePackageDashoardMetadata(packageName: string): Metadata {
 
 export default async function PackageDashboard({ packageName }: PackageDashboardProps) {
   const metadata = await getPackage(packageName);
-
-  console.log("Check the package metadata", metadata);
 
   if (!metadata) {
     return notFound();
@@ -200,7 +199,7 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <PageContainer className="pb-4">
-        <div className="flex flex-col justify-center gap-1">
+        <section className="flex flex-col justify-center gap-1">
           <h1 className="text-2xl lg:text-3xl font-bold pt-2">
             <span>📦</span> {packageName}
           </h1>
@@ -208,8 +207,9 @@ export default async function PackageDashboard({ packageName }: PackageDashboard
             className="flex-1 text-gray-500 text-sm"
             dangerouslySetInnerHTML={{ __html: parsedDescription }}
           />
-        </div>
+        </section>
         <PackageGeneralInfo {...packageLeadingInfo} />
+        <PackageSummary packageMetada={metadata} />
         <DependenciesOverview
           packageName={packageName}
           deps={dependencies}

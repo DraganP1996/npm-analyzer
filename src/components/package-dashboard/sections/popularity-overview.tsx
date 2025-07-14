@@ -2,6 +2,8 @@ import { getDownlaodStatsForPackage } from "@/lib/package/getDownloads";
 import { PopularityCard, SectionHeader } from "../components";
 import { PopularityGeneralInfo } from "./popularity-general-info";
 import { ChartConfig } from "@/components/ui/chart";
+import { getPopularityFrequencySummary } from "@/lib/ai";
+import { aggregateDownloadsByMonth } from "@/utils";
 
 type PopularityOverviewProps = {
   packageName: string;
@@ -23,14 +25,20 @@ export const PopularityOverview = async ({
       color: "#2563eb",
     },
   } satisfies ChartConfig;
+  const aggregatedData = aggregateDownloadsByMonth(downloadData || []);
+  const popularitySummary = await getPopularityFrequencySummary(packageName, aggregatedData);
 
   return (
-    <div className="flex flex-col gap-2">
+    <section className="flex flex-col gap-2">
       <SectionHeader>
         <h2 className="text-3xl font-semibold"> Popularity Overview</h2>
       </SectionHeader>
       <PopularityGeneralInfo stars={stars} watchers={watchers} forks={forks} />
-      <PopularityCard config={chartConfig} packageName={packageName} data={downloadData || []} />
-    </div>
+      <PopularityCard
+        config={chartConfig}
+        popularitySummary={popularitySummary}
+        data={downloadData || []}
+      />
+    </section>
   );
 };

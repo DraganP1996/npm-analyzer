@@ -8,6 +8,8 @@ import { getPackage } from "@/lib";
 import { Badge } from "../ui/badge";
 import { VersionsCompare, VulnerabilityDetails } from "./sections";
 import { ComplexCardSkeleton } from "../package-dashboard/skeletons";
+import { getSpecificVersionSummary, formatParagraphs } from "@/lib/ai";
+import { findPreviousVersions } from "@/utils";
 
 type PackageVersionSpecificPageProps = {
   version: string;
@@ -84,19 +86,20 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
       href: "",
     },
   ];
-
   const versions = metadata.stableVersions;
+  const prevVersion = findPreviousVersions(version, versions);
+  const summary = await getSpecificVersionSummary(packageName, versionMetadata, prevVersion);
 
   return (
-    <PageContainer className="pb-2">
+    <PageContainer className="pb-2 gap-2">
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
 
-      <h1 className="font-bold text-2xl lg:text-3xl">
+      <h1 className="font-bold text-2xl lg:text-3xl my-2">
         Version Details and Security Vulnerabilities
       </h1>
 
       <div className="flex flex-row items-center justify-between ">
-        <div className="flex flex-row items-center text-lg lg:text-xl font-semibold gap-1">
+        <div className="flex flex-row items-center text-lg lg:text-xl font-semibold gap-1 my-2">
           <span className="text:xl lg:text-2xl">📦</span> <h2>{packageName}</h2>
         </div>
         <Badge> {versionMetadata.version} </Badge>
@@ -104,24 +107,26 @@ export const PackageVersion = async ({ version, packageName }: PackageVersionSpe
       {Object.keys(versions).length > 1 && (
         <VersionsCompare currVersion={version} versions={versions} />
       )}
-      <h2 className="font-bold text-xl lg:text-2xl"> Security Vulnerabilities </h2>
-      <Suspense
-        fallback={
-          <div className="w-full">
-            <ComplexCardSkeleton widthClassName="w-full" />{" "}
-          </div>
-        }
-      >
-        <VulnerabilityDetails packageName={packageName} packageMetadata={versionMetadata} />
-      </Suspense>
-      {/* <h3 className="mt-6 text-lg font-semibold">Transitive Dependencies</h3> */}
-      {/* <ul className="list-disc pl-6 text-base">
-        {transitiveDependencies.map((dep) => (
-          <li key={`${dep.name}@${dep.version}`}>
-            {dep.name}@{dep.version}
-          </li>
-        ))}
-      </ul> */}
+      {summary && (
+        <section className="flex flex-col gap-2">
+          <h2 className="font-bold text-xl lg:text-2xl my-2">
+            Version {versionMetadata.version} Details{" "}
+          </h2>
+          <div className="text-gray-900"> {formatParagraphs(summary)} </div>
+        </section>
+      )}
+      <section className="flex flex-col gap-2">
+        <h2 className="font-bold text-xl lg:text-2xl my-2"> Security Vulnerabilities </h2>
+        <Suspense
+          fallback={
+            <div className="w-full">
+              <ComplexCardSkeleton widthClassName="w-full" />{" "}
+            </div>
+          }
+        >
+          <VulnerabilityDetails packageName={packageName} packageMetadata={versionMetadata} />
+        </Suspense>
+      </section>
     </PageContainer>
   );
 };

@@ -10,3 +10,5 @@ export * from "./filterStableVersions";
 export * from "./compactNumberFormatter";
 export * from "./parsePackageDescription";
 export * from "./sanitizeHtml";
+export * from "./aggregateDownloadsByMonth";
+export * from "./findPreviousVersion";

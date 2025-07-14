@@ -7,4 +7,10 @@ export const CACHE_TAGS = {
   ovsPackageAllVersions: "ovs_package_versions",
   packageDownloadStats: "package_download_stats",
   trends: "trends",
+  aiPackageSummary: "ai_package_summary",
+  aiReleaseFrequencySummary: "ai_release_frequency_summary",
+  aiOverallVersionsSummary: "ai_overall_versions_summary",
+  aiPopularitySummary: "ai_popularity_summary",
+  aiPackageSecuritySummary: "ai_security_summary",
+  aiSpecificVersionSummary: "ai_specific_version_summary",
 } as const;

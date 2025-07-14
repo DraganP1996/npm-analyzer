@@ -45,7 +45,7 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
   const openDiscussions = discussions.nodes;
 
   return (
-    <div className="flex flex-col gap-2">
+    <section className="flex flex-col gap-2">
       <SectionHeader>
         <h2 className="text-xl lg:text-3xl font-semibold"> Repository Overview</h2>
       </SectionHeader>
@@ -145,6 +145,6 @@ export const RepositoryOverview = ({ repository }: RepositoryOverviewProps) => {
           ))}
         </ComplexCard>
       </div>
-    </div>
+    </section>
   );
 };

@@ -12,6 +12,9 @@ import { VersionsChart } from "./components";
 import { mobileVersionColumns } from "./components/mobile-version-columns";
 import { getPackage } from "@/lib";
 import { filterStableVersions } from "@/utils";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Terminal } from "lucide-react";
+import { formatParagraphs, getOverallVersionsSummary } from "@/lib/ai";
 
 type PackagVersionsProps = {
   packageName: string;
@@ -93,6 +96,8 @@ export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
       Object.keys(item.peerDependencies || {}).length,
   }));
 
+  const versionsSummary = await getOverallVersionsSummary(packageName, reverseTable);
+
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -101,7 +106,7 @@ export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
   } satisfies ChartConfig;
 
   return (
-    <PageContainer className="pb-4">
+    <PageContainer className="pb-4 gap-4">
       <BreadCrumbNavigation items={breadcrumbNavigationItems} />
       <div className="flex flex-row gap-1 items-center">
         <h1 className="font-bold text-3xl"> Version History </h1>
@@ -145,6 +150,17 @@ export const PackageVersions = async ({ packageName }: PackagVersionsProps) => {
           <VersionsChart chartConfig={chartConfig} data={depsChartData} dataKey="depsCount" />
         </ComplexCard>
       </div>
+      {versionsSummary && (
+        <Alert>
+          <Terminal className="h-4 w-4" />
+          <AlertTitle>
+            <h3>Versions Summary</h3>
+          </AlertTitle>
+          <AlertDescription className="text-gray-900 text-sm">
+            {formatParagraphs(versionsSummary)}
+          </AlertDescription>
+        </Alert>
+      )}
       <div className="hidden lg:flex">
         <DataTable columns={versionColumns} data={tableData.reverse()} />
       </div>

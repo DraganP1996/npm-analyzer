@@ -4,11 +4,11 @@ import { filterStableVersions } from "@/utils";
 
 const getTrendsData = async (): Promise<TrendPackage[]> => {
   try {
-    const url = `${process.env.LIBRARIES_IO_BASE_URL}?platforms=npm&sort=rank&per_page=50&page=1&api_key=${process.env.LIBRARIES_IO_TOKEN}`;
+    const url = `${process.env.LIBRARIES_IO_BASE_URL}?sort=rank&per_page=50&page=1&api_key=${process.env.LIBRARIES_IO_TOKEN}`;
     const trendsRes = await fetch(url);
 
     if (!trendsRes.ok) {
-      console.log("Trends response is not ok", trendsRes);
+      console.log("Trends response is not ok", trendsRes.status);
       return [];
     }
 
@@ -28,9 +28,11 @@ const getTrendsData = async (): Promise<TrendPackage[]> => {
     }));
   } catch (err) {
     console.error("Error during trends data fetching", err);
+
+    console.log("Check the trends error", err);
     return [];
   }
 };
 
 export const getTrends = async () =>
-  await getOrSet<TrendPackage[]>("trends", 5 * 24 * 60 * 60, () => getTrendsData());
+  await getOrSet<TrendPackage[]>("trends", 50 * 24 * 60 * 60, () => getTrendsData());

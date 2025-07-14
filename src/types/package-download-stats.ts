@@ -9,3 +9,8 @@ export type DownloadDay = {
   downloads: number;
   day: string;
 };
+
+export type DownloadMonth = {
+  month: string;
+  downloads: number;
+};

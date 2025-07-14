@@ -27,20 +27,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const config = {
-  //   apiUrl: "http://localhost:3001",
-  //   siteId: "your-site-id",
-  //   debug: true,
-  // };
   return (
     <html lang="en" className="flex h-full">
       <head>
-        {/* <script
-          dangerouslySetInnerHTML={{
-            __html: `window.trakomiConfig = ${JSON.stringify(config)};`,
-          }}
-        />
-        <script src="/trakomi-tracker.umd.js" async></script> */}
         <script
           defer
           src="https://cloud.umami.is/script.js"

@@ -35,7 +35,6 @@ const getVlnIdsForMultiplePackages = async (
   }
 
   const ovsData: OsvBatchResponse = await ovsResponse.json();
-
   const packageVlnsSummaries = ovsData.results
     .map((ovsVln, index) => ({
       ...ovsVln,

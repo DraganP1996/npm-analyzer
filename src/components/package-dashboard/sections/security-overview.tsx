@@ -5,6 +5,7 @@ import { getVlnsForMultiplePkgs } from "@/lib/ovs";
 import { CACHE_TAGS } from "@/consts";
 import { ChartConfig } from "@/components/ui/chart";
 import { SecurityCard } from "../components/security-card";
+import { generateSecurityVulnerabilities } from "@/lib/ai";
 
 type SecurityOverviewProps = {
   packageName: string;
@@ -44,9 +45,13 @@ export const SecurityOverview = async ({
   });
   const latestVersionVlns = versionsVlnCounter.find((version) => version.version === stableVersion);
   const lastVersionWithVlns = versionsVlnCounter.findLast((version) => version.count > 0);
+  const vulnerabiltiesSummary = await generateSecurityVulnerabilities(
+    packageName,
+    versionsVlnCounter
+  );
 
   return (
-    <div className="flex flex-col gap-2">
+    <section className="flex flex-col gap-2">
       <SectionHeader>
         <h2 className="text-3xl font-semibold"> Security Overview</h2>
       </SectionHeader>
@@ -62,8 +67,9 @@ export const SecurityOverview = async ({
           data={versionsVlnCounter}
           packageName={packageName}
           stableVersion={stableVersion}
+          summary={vulnerabiltiesSummary}
         />
       </div>
-    </div>
+    </section>
   );
 };

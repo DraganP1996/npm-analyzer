@@ -5,14 +5,15 @@ import { ComplexCard } from "@/components/ui/complex-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { DownloadDay } from "@/types";
 import { PopularityChart } from "./popularity-chart";
+import { formatParagraphs } from "@/lib/ai";
 
 type PopularityCardProps = {
   config: ChartConfig;
   data: DownloadDay[];
-  packageName: string;
+  popularitySummary?: string;
 };
 
-export const PopularityCard = ({ config, data }: PopularityCardProps) => {
+export const PopularityCard = ({ config, data, popularitySummary }: PopularityCardProps) => {
   return (
     <ComplexCard
       title="Downloads History"
@@ -22,14 +23,17 @@ export const PopularityCard = ({ config, data }: PopularityCardProps) => {
     >
       <PopularityChart config={config} data={data} />
       <div className="flex flex-col gap-2">
-        <Alert>
-          <Terminal className="h-4 w-4" />
-          <AlertTitle>The precision of this numbers </AlertTitle>
-          <AlertDescription>
-            they are simply a count of the number of HTTP 200 responses we served that were tarball
-            files, i.e. packages.
-          </AlertDescription>
-        </Alert>
+        {popularitySummary && (
+          <Alert>
+            <Terminal className="h-4 w-4" />
+            <AlertTitle>
+              <h3>Popularity Summary</h3>
+            </AlertTitle>
+            <AlertDescription className="leading-4">
+              {formatParagraphs(popularitySummary)}
+            </AlertDescription>
+          </Alert>
+        )}
       </div>
     </ComplexCard>
   );

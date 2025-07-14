@@ -25,7 +25,7 @@ export const VersionsOverview = ({
   );
 
   return (
-    <div className="flex flex-col gap-2">
+    <section className="flex flex-col gap-2">
       <SectionHeader>
         <h2 className="text-xl lg:text-3xl font-semibold"> Versions Overview</h2>
       </SectionHeader>
@@ -37,6 +37,6 @@ export const VersionsOverview = ({
         </div>
         <ReleaseFrequencyCard history={history} packageName={packageName} />
       </div>
-    </div>
+    </section>
   );
 };
