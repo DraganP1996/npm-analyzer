@@ -36,6 +36,11 @@ export default function RootLayout({
           data-website-id="5894ce05-d989-454f-bbbb-aba23e034328"
         ></script>
         <meta name="google-adsense-account" content="ca-pub-7098826907138268" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7098826907138268"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body className={`${geistMono.variable} ${sigmar.variable} antialiased flex-1 flex flex-col`}>
         <div className="flex-1 flex flex-col">
